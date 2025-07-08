@@ -1,6 +1,6 @@
 # 🚀 InnovateTRIZ - AI-Enhanced TRIZ Innovation Tool
 
-*[中文版本](#中文版本) | [English Version](#english-version)*
+*[English](README.md) | [中文](README.zh-CN.md)*
 
 ---
 
