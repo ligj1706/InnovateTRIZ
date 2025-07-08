@@ -189,6 +189,6 @@ def get_all_principles():
 
 if __name__ == '__main__':
     print("🚀 TRIZ创新算法助手 - Web版启动中...")
-    print("📱 访问地址: http://localhost:5000")
-    print("🎯 API文档: http://localhost:5000/api")
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    print("📱 访问地址: http://localhost:5001")
+    print("🎯 API文档: http://localhost:5001/api")
+    app.run(debug=True, host='0.0.0.0', port=5001)

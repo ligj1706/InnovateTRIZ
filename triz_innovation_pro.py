@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-TRIZ创新算法应用 - 专业版
-极致强大的问题解决工具，基于TRIZ理论的40个发明原理和扩展矛盾矩阵
-具备智能分析、历史记录、解决方案导出等高级功能
+TRIZ Innovation Algorithm Application - Professional Edition
+Powerful problem-solving tool based on TRIZ theory with 40 invention principles and extended contradiction matrix
+Features intelligent analysis, history tracking, solution export, and advanced functionalities
 """
 
 import json
@@ -61,6 +61,232 @@ class ProblemSession:
     user_rating: Optional[int] = None
     notes: str = ""
 
+class Translations:
+    """Bilingual translation system"""
+    
+    TEXT = {
+        "en": {
+            # Headers and titles
+            "app_title": "🚀 TRIZ Innovation Assistant - Pro",
+            "app_subtitle": "Intelligent Problem Solving Made Simple",
+            "menu_title": "🚀 TRIZ Innovation Assistant",
+            
+            # Main menu
+            "menu_analyze": "🎯 Analyze Problem",
+            "menu_brainstorm": "💡 Quick Brainstorm",
+            "menu_export": "📊 Export Solutions",
+            "menu_more": "📈 History & More",
+            "menu_exit": "❌ Exit",
+            "menu_language": "🌐 中文",
+            
+            # Input prompts
+            "prompt_choice": "Choose option (1-4, 0 to exit)",
+            "prompt_problem": "Describe your problem",
+            "prompt_export_format": "Format (1=JSON, 2=Text, Enter=JSON)",
+            "prompt_continue": "Press Enter to continue...",
+            "prompt_action": "Action (f1-f5 to favorite, 'v' view favorites, Enter to continue)",
+            
+            # Analysis
+            "analysis_title": "🎯 Quick Problem Analysis",
+            "analysis_tips": "Tips: Type 'help' for shortcuts, 'back' to return",
+            "analysis_auto_detect": "⚡ Auto-detecting parameters...",
+            "analysis_reusing": "Reusing",
+            "analysis_example": "Example",
+            
+            # Solutions
+            "solutions_title": "Solutions",
+            "solutions_analysis": "Analysis Results",
+            "solutions_brainstorm": "Brainstorm Results",
+            "solutions_none": "💭 No solutions found",
+            "solutions_count": "solutions",
+            
+            # Loading messages
+            "loading_analyzing": "Analyzing with AI and TRIZ matrix",
+            "loading_brainstorm": "Generating creative solutions",
+            "loading_export": "Generating export file",
+            
+            # Export
+            "export_title": "📊 Quick Export",
+            "export_success": "✅ Exported to file",
+            "export_failed": "❌ Export failed",
+            "export_no_solutions": "❌ No solutions available for export",
+            
+            # More options
+            "more_title": "🔧 More Options",
+            "more_favorites": "⭐ Favorites",
+            "more_history": "📈 History",
+            "more_settings": "⚙️ Settings",
+            "more_statistics": "📋 Statistics",
+            "more_back": "⬅️ Back",
+            
+            # Messages
+            "msg_invalid_choice": "❌ Invalid choice, please try again",
+            "msg_thank_you": "👋 Thank you for using TRIZ Innovation Assistant!",
+            "msg_details_required": "Please provide more details (at least 10 characters)",
+            "msg_added_favorite": "Added to favorites",
+            "msg_removed_favorite": "Removed from favorites",
+            
+            # Shortcuts help
+            "help_shortcuts": "Quick shortcuts:",
+            "help_last": "'last' - reuse last problem",
+            "help_example": "'example' - try example problem",
+            "help_back": "'back' - return to menu",
+            
+            # Favorites
+            "favorites_title": "⭐ Favorite Principles",
+            "favorites_empty": "📝 Favorites is empty",
+            "favorites_total": "Total",
+            
+            # History
+            "history_title": "📈 Recent Analysis Records",
+            "history_empty": "📝 No history records available",
+            "history_solutions": "Solutions",
+            "history_rating": "Rating",
+            "history_not_rated": "Not rated",
+            
+            # Settings
+            "settings_title": "⚙️ System Settings",
+            "settings_current": "Current configuration",
+            "settings_modify_max": "Modify max solutions",
+            "settings_toggle_history": "Toggle history",
+            "settings_return": "Return",
+            "settings_choose": "Choose option (1-5)",
+            "settings_enter_max": "Enter max solutions (1-10)",
+            "settings_saved": "✅ Settings saved",
+            "settings_out_of_range": "❌ Value out of range",
+            "settings_format_error": "❌ Input format error",
+            "settings_history_enabled": "✅ History enabled",
+            "settings_history_disabled": "✅ History disabled",
+            
+            # Statistics
+            "stats_title": "📋 Usage Statistics",
+            "stats_total_sessions": "Total sessions",
+            "stats_rated_sessions": "Rated sessions",
+            "stats_average_rating": "Average rating",
+            "stats_favorite_principles": "Favorite principles",
+        },
+        
+        "zh": {
+            # Headers and titles
+            "app_title": "🚀 TRIZ创新算法助手 - 专业版",
+            "app_subtitle": "智能问题解决，简单高效",
+            "menu_title": "🚀 TRIZ创新算法助手",
+            
+            # Main menu
+            "menu_analyze": "🎯 分析问题",
+            "menu_brainstorm": "💡 快速头脑风暴",
+            "menu_export": "📊 导出解决方案",
+            "menu_more": "📈 历史记录和更多",
+            "menu_exit": "❌ 退出",
+            "menu_language": "🌐 English",
+            
+            # Input prompts
+            "prompt_choice": "选择选项 (1-4, 0退出)",
+            "prompt_problem": "描述您的问题",
+            "prompt_export_format": "格式 (1=JSON, 2=文本, 回车=JSON)",
+            "prompt_continue": "按回车键继续...",
+            "prompt_action": "操作 (f1-f5收藏, 'v'查看收藏, 回车继续)",
+            
+            # Analysis
+            "analysis_title": "🎯 快速问题分析",
+            "analysis_tips": "提示: 输入'help'查看快捷键, 'back'返回",
+            "analysis_auto_detect": "⚡ 自动检测参数中...",
+            "analysis_reusing": "重用",
+            "analysis_example": "示例",
+            
+            # Solutions
+            "solutions_title": "解决方案",
+            "solutions_analysis": "分析结果",
+            "solutions_brainstorm": "头脑风暴结果",
+            "solutions_none": "💭 未找到解决方案",
+            "solutions_count": "个解决方案",
+            
+            # Loading messages
+            "loading_analyzing": "基于AI和TRIZ矩阵分析中",
+            "loading_brainstorm": "生成创意解决方案中",
+            "loading_export": "生成导出文件中",
+            
+            # Export
+            "export_title": "📊 快速导出",
+            "export_success": "✅ 已导出到文件",
+            "export_failed": "❌ 导出失败",
+            "export_no_solutions": "❌ 没有可导出的解决方案",
+            
+            # More options
+            "more_title": "🔧 更多选项",
+            "more_favorites": "⭐ 收藏夹",
+            "more_history": "📈 历史记录",
+            "more_settings": "⚙️ 系统设置",
+            "more_statistics": "📋 使用统计",
+            "more_back": "⬅️ 返回",
+            
+            # Messages
+            "msg_invalid_choice": "❌ 无效选择，请重新输入",
+            "msg_thank_you": "👋 感谢使用TRIZ创新算法助手！",
+            "msg_details_required": "请提供更多详细信息（至少10个字符）",
+            "msg_added_favorite": "已添加到收藏夹",
+            "msg_removed_favorite": "已从收藏夹移除",
+            
+            # Shortcuts help
+            "help_shortcuts": "快捷键说明:",
+            "help_last": "'last' - 重用上次问题",
+            "help_example": "'example' - 尝试示例问题",
+            "help_back": "'back' - 返回菜单",
+            
+            # Favorites
+            "favorites_title": "⭐ 收藏的原理",
+            "favorites_empty": "📝 收藏夹为空",
+            "favorites_total": "共",
+            
+            # History
+            "history_title": "📈 最近的分析记录",
+            "history_empty": "📝 暂无历史记录",
+            "history_solutions": "方案数",
+            "history_rating": "评分",
+            "history_not_rated": "未评分",
+            
+            # Settings
+            "settings_title": "⚙️ 系统设置",
+            "settings_current": "当前配置",
+            "settings_modify_max": "修改最大解决方案数",
+            "settings_toggle_history": "切换历史记录",
+            "settings_return": "返回",
+            "settings_choose": "选择操作 (1-5)",
+            "settings_enter_max": "输入最大解决方案数 (1-10)",
+            "settings_saved": "✅ 设置已保存",
+            "settings_out_of_range": "❌ 数值范围错误",
+            "settings_format_error": "❌ 输入格式错误",
+            "settings_history_enabled": "✅ 历史记录已启用",
+            "settings_history_disabled": "✅ 历史记录已禁用",
+            
+            # Statistics
+            "stats_title": "📋 使用统计",
+            "stats_total_sessions": "总分析次数",
+            "stats_rated_sessions": "已评分次数",
+            "stats_average_rating": "平均评分",
+            "stats_favorite_principles": "收藏原理数",
+        }
+    }
+    
+    def __init__(self, language="en"):
+        self.current_language = language
+    
+    def get(self, key: str) -> str:
+        """Get translated text for the current language"""
+        return self.TEXT[self.current_language].get(key, key)
+    
+    def set_language(self, language: str):
+        """Switch language"""
+        if language in self.TEXT:
+            self.current_language = language
+            return True
+        return False
+    
+    def toggle_language(self):
+        """Toggle between English and Chinese"""
+        self.current_language = "zh" if self.current_language == "en" else "en"
+        return self.current_language
+
 class AdvancedTRIZInnovator:
     def __init__(self):
         self.data_dir = Path.home() / ".triz_innovator_pro"
@@ -77,9 +303,13 @@ class AdvancedTRIZInnovator:
         self.history: List[ProblemSession] = self._load_history()
         self.favorites: Set[str] = self._load_favorites()
         self.config = self._load_config()
+        
+        # Initialize translation system with saved language
+        global t
+        t.set_language(self.config.get("language", "en"))
     
     def _load_principles(self) -> Dict[int, Dict[str, any]]:
-        """完整的40个TRIZ发明原理数据库"""
+        """Complete database of 40 TRIZ invention principles"""
         return {
             1: {
                 "name": "分割", "description": "将对象分成独立的部分",
@@ -120,7 +350,7 @@ class AdvancedTRIZInnovator:
         }
     
     def _load_matrix(self) -> Dict[Tuple[str, str], List[int]]:
-        """扩展的技术矛盾矩阵"""
+        """Extended technical contradiction matrix"""
         return {
             ("重量", "强度"): [1, 8, 15, 40], ("重量", "速度"): [2, 14, 15, 35],
             ("强度", "重量"): [1, 8, 36, 40], ("复杂性", "可靠性"): [1, 26, 27, 40],
@@ -131,7 +361,7 @@ class AdvancedTRIZInnovator:
         }
     
     def _load_parameter_keywords(self) -> Dict[str, List[str]]:
-        """参数关键词映射"""
+        """Parameter keyword mapping"""
         return {
             "重量": ["重", "轻", "质量", "重量", "载重"],
             "强度": ["强度", "硬度", "刚性", "坚固", "耐用"],
@@ -146,7 +376,7 @@ class AdvancedTRIZInnovator:
         }
     
     def _load_problem_categories(self) -> Dict[str, List[str]]:
-        """问题分类关键词"""
+        """Problem category keywords"""
         return {
             "技术问题": ["技术", "系统", "设备", "机器", "算法", "软件"],
             "设计问题": ["设计", "外观", "结构", "布局", "界面", "造型"],
@@ -156,12 +386,13 @@ class AdvancedTRIZInnovator:
         }
     
     def _load_config(self) -> dict:
-        """加载配置"""
+        """Load configuration"""
         default_config = {
             "max_solutions": 5,
             "enable_history": True,
             "auto_save": True,
-            "export_format": "json"
+            "export_format": "json",
+            "language": "en"
         }
         try:
             if self.config_file.exists():
@@ -171,8 +402,16 @@ class AdvancedTRIZInnovator:
             pass
         return default_config
     
+    def toggle_language(self):
+        """Toggle between English and Chinese"""
+        global t
+        new_lang = t.toggle_language()
+        self.config["language"] = new_lang
+        self._save_config()
+        return new_lang
+    
     def _save_config(self):
-        """保存配置"""
+        """Save configuration"""
         try:
             with open(self.config_file, 'w', encoding='utf-8') as f:
                 json.dump(self.config, f, ensure_ascii=False, indent=2)
@@ -180,7 +419,7 @@ class AdvancedTRIZInnovator:
             pass
     
     def _load_history(self) -> List[ProblemSession]:
-        """加载历史记录"""
+        """Load history records"""
         try:
             if self.history_file.exists():
                 with open(self.history_file, 'rb') as f:
@@ -190,7 +429,7 @@ class AdvancedTRIZInnovator:
         return []
     
     def _load_favorites(self) -> Set[str]:
-        """加载收藏夹"""
+        """Load favorites"""
         try:
             if self.favorites_file.exists():
                 with open(self.favorites_file, 'rb') as f:
@@ -200,17 +439,17 @@ class AdvancedTRIZInnovator:
         return set()
     
     def _save_history(self):
-        """保存历史记录"""
+        """Save history records"""
         if not self.config.get("enable_history", True):
             return
         try:
             with open(self.history_file, 'wb') as f:
-                pickle.dump(self.history[-100:], f)  # 保存最近100条
+                pickle.dump(self.history[-100:], f)  # Save last 100 records
         except Exception:
             pass
     
     def _save_favorites(self):
-        """保存收藏夹"""
+        """Save favorites"""
         try:
             with open(self.favorites_file, 'wb') as f:
                 pickle.dump(self.favorites, f)
@@ -218,7 +457,7 @@ class AdvancedTRIZInnovator:
             pass
     
     def _smart_parameter_detection(self, text: str) -> List[str]:
-        """智能参数检测"""
+        """Smart parameter detection"""
         detected = []
         text_lower = text.lower()
         
@@ -229,18 +468,18 @@ class AdvancedTRIZInnovator:
         return detected
     
     def _categorize_problem(self, problem: str) -> str:
-        """问题分类"""
+        """Problem categorization"""
         problem_lower = problem.lower()
         
         for category, keywords in self.problem_categories.items():
             if any(keyword in problem_lower for keyword in keywords):
                 return category
         
-        return "通用问题"
+        return "General Problem"
     
     def analyze_problem(self, problem: str, improving: str = "", worsening: str = "") -> List[Solution]:
-        """智能分析问题并生成解决方案"""
-        # 智能参数检测
+        """Intelligently analyze problems and generate solutions"""
+        # Smart parameter detection
         if not improving or not worsening:
             detected_params = self._smart_parameter_detection(problem)
             if len(detected_params) >= 2:
@@ -248,15 +487,15 @@ class AdvancedTRIZInnovator:
                 worsening = worsening or detected_params[1]
             elif len(detected_params) == 1:
                 improving = improving or detected_params[0]
-                worsening = worsening or "复杂性"  # 默认恶化参数
+                worsening = worsening or "复杂性"  # Default worsening parameter
         
-        # 查找矛盾矩阵
+        # Find contradiction matrix
         key = (improving.lower(), worsening.lower())
         reverse_key = (worsening.lower(), improving.lower())
         
         principle_ids = self.contradiction_matrix.get(key) or self.contradiction_matrix.get(reverse_key)
         
-        # 如果没找到精确匹配，使用智能推荐
+        # If no exact match found, use smart recommendations
         if not principle_ids:
             principle_ids = self._get_smart_recommendations(problem, improving, worsening)
         
@@ -267,10 +506,10 @@ class AdvancedTRIZInnovator:
                 solution = self._generate_solution(problem, principle_data, pid, improving, worsening)
                 solutions.append(solution)
         
-        # 排序
+        # Sort
         solutions = sorted(solutions, key=lambda x: (x.confidence + x.relevance_score) / 2, reverse=True)
         
-        # 保存到历史
+        # Save to history
         if self.config.get("enable_history", True):
             session = ProblemSession(
                 problem=problem,
@@ -287,26 +526,26 @@ class AdvancedTRIZInnovator:
         return solutions
     
     def _get_smart_recommendations(self, problem: str, improving: str, worsening: str) -> List[int]:
-        """智能推荐原理"""
+        """Smart principle recommendations"""
         problem_category = self._categorize_problem(problem)
         
         recommendations = {
-            "技术问题": [1, 2, 15, 35, 40],
-            "设计问题": [1, 15, 27, 35, 40],
-            "成本问题": [27, 35, 1, 2, 40],
-            "用户问题": [15, 35, 1, 27, 40],
-            "质量问题": [1, 2, 15, 35, 40]
+            "Technical Problem": [1, 2, 15, 35, 40],
+            "Design Problem": [1, 15, 27, 35, 40],
+            "Cost Problem": [27, 35, 1, 2, 40],
+            "User Problem": [15, 35, 1, 27, 40],
+            "Quality Problem": [1, 2, 15, 35, 40]
         }
         
         return recommendations.get(problem_category, [1, 2, 15, 27, 35])
     
     def _generate_solution(self, problem: str, principle_data: dict, pid: int, improving: str, worsening: str) -> Solution:
-        """生成解决方案"""
-        # 计算置信度和相关性
+        """Generate solution"""
+        # Calculate confidence and relevance
         confidence = self._calculate_confidence(problem, principle_data, improving, worsening)
         relevance = self._calculate_relevance(problem, principle_data)
         
-        # 生成描述
+        # Generate description
         description = self._generate_description(problem, principle_data, improving, worsening)
         
         return Solution(
@@ -322,35 +561,35 @@ class AdvancedTRIZInnovator:
         )
     
     def _calculate_confidence(self, problem: str, principle_data: dict, improving: str, worsening: str) -> float:
-        """计算置信度"""
+        """Calculate confidence score"""
         base_confidence = 0.6
         
-        # 关键词匹配
+        # Keyword matching
         problem_lower = problem.lower()
         keyword_matches = sum(1 for kw in principle_data["keywords"] if kw in problem_lower)
         keyword_bonus = min(0.3, keyword_matches * 0.1)
         
-        # 参数相关性
+        # Parameter relevance
         param_bonus = 0.1 if (improving.lower() in str(principle_data["keywords"]).lower() or 
                              worsening.lower() in str(principle_data["keywords"]).lower()) else 0
         
         return min(0.95, base_confidence + keyword_bonus + param_bonus)
     
     def _calculate_relevance(self, problem: str, principle_data: dict) -> float:
-        """计算相关性"""
+        """Calculate relevance score"""
         problem_lower = problem.lower()
         
-        # 关键词匹配
+        # Keyword matching
         keyword_score = sum(1 for kw in principle_data["keywords"] if kw in problem_lower)
         
-        # 示例匹配
+        # Example matching
         example_score = sum(1 for ex in principle_data["examples"] 
                           if any(word in problem_lower for word in ex.lower().split()))
         
         return min(1.0, (keyword_score * 0.2 + example_score * 0.1))
     
     def _generate_description(self, problem: str, principle_data: dict, improving: str, worsening: str) -> str:
-        """生成解决方案描述"""
+        """Generate solution description"""
         principle_name = principle_data["name"]
         base_desc = principle_data["description"]
         
@@ -363,18 +602,18 @@ class AdvancedTRIZInnovator:
         return f"运用{principle_name}原理（{base_desc}）来解决{problem}，重点改善{improving}与{worsening}的平衡"
     
     def brainstorm(self, problem: str, num_solutions: int = None) -> List[Solution]:
-        """智能头脑风暴"""
+        """Intelligent brainstorming"""
         if num_solutions is None:
             num_solutions = self.config.get("max_solutions", 5)
         
-        # 问题分析
+        # Problem analysis
         problem_category = self._categorize_problem(problem)
         detected_params = self._smart_parameter_detection(problem)
         
-        # 选择相关原理
+        # Select relevant principles
         relevant_principles = self._get_smart_recommendations(problem, "", "")
         
-        # 生成解决方案
+        # Generate solutions
         solutions = []
         for pid in relevant_principles:
             if pid in self.principles:
@@ -385,7 +624,7 @@ class AdvancedTRIZInnovator:
         return sorted(solutions, key=lambda x: (x.confidence + x.relevance_score) / 2, reverse=True)[:num_solutions]
     
     def export_solutions(self, solutions: List[Solution], format_type: str = None) -> str:
-        """导出解决方案"""
+        """Export solutions"""
         if format_type is None:
             format_type = self.config.get("export_format", "json")
         
@@ -395,7 +634,7 @@ class AdvancedTRIZInnovator:
             return self._export_txt(solutions)
     
     def _export_json(self, solutions: List[Solution]) -> str:
-        """导出为JSON格式"""
+        """Export in JSON format"""
         export_data = {
             "timestamp": datetime.datetime.now().isoformat(),
             "solution_count": len(solutions),
@@ -404,32 +643,32 @@ class AdvancedTRIZInnovator:
         return json.dumps(export_data, ensure_ascii=False, indent=2)
     
     def _export_txt(self, solutions: List[Solution]) -> str:
-        """导出为文本格式"""
+        """Export in text format"""
         lines = []
-        lines.append("TRIZ创新解决方案报告")
+        lines.append(        "TRIZ Innovation Solutions Report")
         lines.append("=" * 50)
-        lines.append(f"生成时间: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-        lines.append(f"解决方案数量: {len(solutions)}")
+        lines.append(f"Generation time: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        lines.append(f"Number of solutions: {len(solutions)}")
         lines.append("")
         
         for i, sol in enumerate(solutions, 1):
-            lines.append(f"方案 {i}: {sol.principle}")
-            lines.append(f"描述: {sol.description}")
-            lines.append(f"置信度: {sol.confidence:.1%}")
-            lines.append(f"相关性: {sol.relevance_score:.1%}")
-            lines.append(f"示例: {', '.join(sol.examples)}")
+            lines.append(f"Solution {i}: {sol.principle}")
+            lines.append(f"Description: {sol.description}")
+            lines.append(f"Confidence: {sol.confidence:.1%}")
+            lines.append(f"Relevance: {sol.relevance_score:.1%}")
+            lines.append(f"Examples: {', '.join(sol.examples)}")
             lines.append("-" * 30)
             lines.append("")
         
         return "\\n".join(lines)
     
     def add_to_favorites(self, principle_name: str):
-        """添加到收藏夹"""
+        """Add to favorites"""
         self.favorites.add(principle_name)
         self._save_favorites()
     
     def get_history(self, limit: int = 10) -> List[dict]:
-        """获取历史记录"""
+        """Get history records"""
         recent_history = self.history[-limit:] if self.history else []
         return [
             {
@@ -443,7 +682,7 @@ class AdvancedTRIZInnovator:
         ]
     
     def get_statistics(self) -> dict:
-        """获取使用统计"""
+        """Get usage statistics"""
         if not self.history:
             return {"total_sessions": 0}
         
@@ -458,8 +697,11 @@ class AdvancedTRIZInnovator:
             "favorites_count": len(self.favorites)
         }
 
+# Initialize global translation instance
+t = Translations()
+
 def main():
-    """主程序 - 现代化终端界面"""
+    """Main program - Modern terminal interface"""
     if not sys.stdout.isatty():
         Colors.disable()
     
@@ -469,144 +711,219 @@ def main():
         os.system('cls' if os.name == 'nt' else 'clear')
     
     def print_header():
-        print(f"\n{Colors.BOLD}{Colors.CYAN}╔══════════════════════════════════════════════════════╗{Colors.END}")
-        print(f"{Colors.BOLD}{Colors.CYAN}║            🚀 TRIZ 创新算法助手 - 专业版             ║{Colors.END}")
-        print(f"{Colors.BOLD}{Colors.CYAN}║          智能问题解决方案生成器 & 创新工具            ║{Colors.END}")
-        print(f"{Colors.BOLD}{Colors.CYAN}╚══════════════════════════════════════════════════════╝{Colors.END}")
+        print(f"\n{Colors.BOLD}{Colors.CYAN}{t.get('app_title')}{Colors.END}")
+        print(f"{Colors.CYAN}{t.get('app_subtitle')}{Colors.END}")
     
     def print_menu():
-        print(f"\n{Colors.BOLD}{Colors.YELLOW}┌─ 功能菜单 ──────────────────────────────────────┐{Colors.END}")
-        print(f"{Colors.GREEN}  1. 🎯 智能矛盾分析     {Colors.CYAN}(精准定位技术矛盾){Colors.END}")
-        print(f"{Colors.GREEN}  2. 💡 AI头脑风暴       {Colors.CYAN}(创意灵感激发){Colors.END}")
-        print(f"{Colors.GREEN}  3. 📊 解决方案导出     {Colors.CYAN}(JSON/TXT格式){Colors.END}")
-        print(f"{Colors.GREEN}  4. ⭐ 收藏夹管理       {Colors.CYAN}(保存常用原理){Colors.END}")
-        print(f"{Colors.GREEN}  5. 📈 历史记录查看     {Colors.CYAN}(回顾过往分析){Colors.END}")
-        print(f"{Colors.GREEN}  6. ⚙️  系统设置         {Colors.CYAN}(个性化配置){Colors.END}")
-        print(f"{Colors.GREEN}  7. 📋 使用统计         {Colors.CYAN}(数据分析){Colors.END}")
-        print(f"{Colors.GREEN}  8. ❌ 退出程序{Colors.END}")
-        print(f"{Colors.BOLD}{Colors.YELLOW}└─────────────────────────────────────────────────┘{Colors.END}")
+        print(f"\n{Colors.BOLD}{Colors.CYAN}{t.get('menu_title')}{Colors.END}")
+        print(f"{Colors.CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━{Colors.END}")
+        print(f"{Colors.GREEN}  1. {t.get('menu_analyze')}     {Colors.CYAN}2. {t.get('menu_brainstorm')}{Colors.END}")
+        print(f"{Colors.GREEN}  3. {t.get('menu_export')}    {Colors.CYAN}4. {t.get('menu_more')}{Colors.END}")
+        print(f"{Colors.GREEN}  0. {t.get('menu_exit')}     {Colors.CYAN}L. {t.get('menu_language')}{Colors.END}")
+        print(f"{Colors.CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━{Colors.END}")
     
-    def get_input(prompt, color=Colors.CYAN):
-        return input(f"{color}🔸 {prompt}{Colors.END} ")
+    def get_input(prompt_key, color=Colors.CYAN):
+        prompt = t.get(prompt_key)
+        return input(f"{color}💬 {prompt}: {Colors.END}")
     
-    def print_solutions(solutions, title="解决方案"):
+    def print_solutions(solutions, title_key="solutions_title"):
         if not solutions:
-            print(f"{Colors.RED}💭 未找到相关解决方案{Colors.END}")
+            print(f"{Colors.RED}{t.get('solutions_none')}{Colors.END}")
             return
         
-        print(f"\n{Colors.BOLD}{Colors.GREEN}╭─ 💡 {title} (共{len(solutions)}个) ─────────────────────╮{Colors.END}")
+        title = t.get(title_key)
+        solutions_word = t.get('solutions_count')
+        print(f"\n{Colors.BOLD}{Colors.GREEN}💡 {title} ({len(solutions)} {solutions_word}){Colors.END}")
+        print(f"{Colors.CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━{Colors.END}")
         
         for i, sol in enumerate(solutions, 1):
-            confidence_color = Colors.GREEN if sol.confidence > 0.8 else Colors.YELLOW if sol.confidence > 0.6 else Colors.RED
-            confidence_bar = "█" * int(sol.confidence * 10) + "░" * (10 - int(sol.confidence * 10))
+            # Simplified confidence display
+            confidence_icon = "🟢" if sol.confidence > 0.8 else "🟡" if sol.confidence > 0.6 else "🔴"
             
-            print(f"\n{Colors.BOLD}{Colors.BLUE}方案 {i}: {sol.principle} ({sol.category}){Colors.END}")
-            print(f"  {Colors.CYAN}▸{Colors.END} {sol.description}")
-            print(f"  {Colors.YELLOW}▸ 置信度:{Colors.END} {confidence_color}{confidence_bar} {sol.confidence:.1%}{Colors.END}")
-            print(f"  {Colors.MAGENTA}▸ 示例:{Colors.END} {', '.join(sol.examples[:2])}")
+            print(f"\n{Colors.BOLD}{Colors.BLUE}{i}. {sol.principle}{Colors.END} {confidence_icon} {sol.confidence:.0%}")
+            print(f"   {sol.description}")
+            print(f"   {Colors.MAGENTA}💡 {sol.examples[0] if sol.examples else 'No examples'}{Colors.END}")
             
-            # 显示收藏状态
+            # Add to favorites shortcut
             fav_status = "⭐" if sol.principle in innovator.favorites else "☆"
-            print(f"  {Colors.ORANGE}▸ 收藏:{Colors.END} {fav_status}")
-        
-        print(f"\n{Colors.BOLD}{Colors.GREEN}╰─────────────────────────────────────────────╯{Colors.END}")
+            print(f"   {Colors.ORANGE}Press 'f{i}' to favorite {fav_status}{Colors.END}")
     
-    def show_loading(message="正在分析..."):
+    def show_loading(message="Analyzing..."):
         import time
         print(f"\n{Colors.YELLOW}⏳ {message}{Colors.END}", end="", flush=True)
-        for _ in range(3):
-            time.sleep(0.4)
+        for _ in range(2):  # Reduced from 3 to 2 for faster UX
+            time.sleep(0.3)  # Reduced from 0.4 to 0.3
             print(".", end="", flush=True)
         print(f" {Colors.GREEN}✓{Colors.END}")
     
+    def smart_analyze_input():
+        """Smart input with shortcuts and quick actions"""
+        print(f"\n{Colors.BOLD}{Colors.BLUE}{t.get('analysis_title')}{Colors.END}")
+        print(f"{Colors.CYAN}{t.get('analysis_tips')}{Colors.END}")
+        
+        while True:
+            problem = get_input("prompt_problem")
+            
+            if problem.lower() == 'back':
+                return None
+            elif problem.lower() == 'help':
+                print(f"{Colors.YELLOW}{t.get('help_shortcuts')}{Colors.END}")
+                print(f"  {Colors.GREEN}• {t.get('help_last')}{Colors.END}")
+                print(f"  {Colors.GREEN}• {t.get('help_example')}{Colors.END}")
+                print(f"  {Colors.GREEN}• {t.get('help_back')}{Colors.END}")
+                continue
+            elif problem.lower() == 'last' and hasattr(innovator, 'last_problem'):
+                problem = innovator.last_problem
+                print(f"{Colors.GREEN}{t.get('analysis_reusing')}: {problem}{Colors.END}")
+            elif problem.lower() == 'example':
+                problem = "How to make software faster without increasing complexity?"
+                print(f"{Colors.GREEN}{t.get('analysis_example')}: {problem}{Colors.END}")
+            
+            if len(problem.strip()) < 10:
+                print(f"{Colors.RED}{t.get('msg_details_required')}{Colors.END}")
+                continue
+                
+            innovator.last_problem = problem
+            
+            # Smart parameter detection message
+            print(f"{Colors.YELLOW}{t.get('analysis_auto_detect')}{Colors.END}")
+            return problem
+    
+    def handle_favorites_quick(solutions):
+        """Quick favorites management with shortcuts"""
+        while True:
+            user_input = get_input("prompt_action")
+            
+            if not user_input:
+                break
+            elif user_input.lower() == 'v':
+                handle_favorites()
+            elif user_input.lower().startswith('f') and user_input[1:].isdigit():
+                idx = int(user_input[1:]) - 1
+                if 0 <= idx < len(solutions):
+                    principle = solutions[idx].principle
+                    if principle in innovator.favorites:
+                        innovator.favorites.remove(principle)
+                        print(f"{Colors.RED}{t.get('msg_removed_favorite')} {principle}{Colors.END}")
+                    else:
+                        innovator.favorites.add(principle)
+                        print(f"{Colors.GREEN}{t.get('msg_added_favorite')} {principle}{Colors.END}")
+                    innovator._save_favorites()
+                else:
+                    print(f"{Colors.RED}{t.get('msg_invalid_choice')}{Colors.END}")
+            else:
+                print(f"{Colors.RED}{t.get('msg_invalid_choice')}{Colors.END}")
+    
+    def handle_more_options():
+        """Simplified secondary menu"""
+        print(f"\n{Colors.BOLD}{Colors.BLUE}{t.get('more_title')}{Colors.END}")
+        print(f"{Colors.GREEN}  1. {t.get('more_favorites')}    2. {t.get('more_history')}    3. {t.get('more_settings')}{Colors.END}")
+        print(f"{Colors.GREEN}  4. {t.get('more_statistics')}  5. {t.get('more_back')}{Colors.END}")
+        
+        choice = get_input("settings_choose")
+        
+        if choice == "1":
+            handle_favorites()
+        elif choice == "2":
+            handle_history()
+        elif choice == "3":
+            handle_settings()
+        elif choice == "4":
+            handle_statistics()
+        elif choice == "5":
+            return
+        else:
+            print(f"{Colors.RED}{t.get('msg_invalid_choice')}{Colors.END}")
+            handle_more_options()
+    
     def handle_export(solutions):
-        """处理解决方案导出"""
+        """Handle solution export"""
         if not solutions:
-            print(f"{Colors.RED}❌ 没有可导出的解决方案{Colors.END}")
+            print(f"{Colors.RED}{t.get('export_no_solutions')}{Colors.END}")
             return
         
-        print(f"\n{Colors.BOLD}{Colors.BLUE}📊 选择导出格式{Colors.END}")
-        print(f"{Colors.GREEN}1. JSON格式  2. 文本格式{Colors.END}")
-        format_choice = get_input("选择格式 (1-2)", Colors.YELLOW)
+        # Quick export with smart defaults
+        print(f"\n{Colors.BOLD}{Colors.BLUE}{t.get('export_title')}{Colors.END}")
+        format_choice = get_input("prompt_export_format")
         
-        format_type = "json" if format_choice == "1" else "txt"
+        format_type = "txt" if format_choice == "2" else "json"
         
-        show_loading("正在生成导出文件")
+        show_loading(t.get("loading_export"))
         export_content = innovator.export_solutions(solutions, format_type)
         
-        # 保存到文件
+        # Save to file
         timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
         filename = f"triz_solutions_{timestamp}.{format_type}"
         
         try:
             with open(filename, 'w', encoding='utf-8') as f:
                 f.write(export_content)
-            print(f"{Colors.GREEN}✅ 已导出到文件: {filename}{Colors.END}")
+            print(f"{Colors.GREEN}{t.get('export_success')}: {filename}{Colors.END}")
         except Exception as e:
-            print(f"{Colors.RED}❌ 导出失败: {e}{Colors.END}")
+            print(f"{Colors.RED}{t.get('export_failed')}: {e}{Colors.END}")
     
     def handle_favorites():
-        """处理收藏夹管理"""
+        """Handle favorites management"""
         favorites = innovator.favorites
         if not favorites:
-            print(f"{Colors.YELLOW}📝 收藏夹为空{Colors.END}")
+            print(f"{Colors.YELLOW}📝 Favorites is empty{Colors.END}")
             return
         
-        print(f"\n{Colors.BOLD}{Colors.GREEN}⭐ 收藏的原理 (共{len(favorites)}个){Colors.END}")
+        print(f"\n{Colors.BOLD}{Colors.GREEN}⭐ Favorite Principles (Total: {len(favorites)}){Colors.END}")
         for i, principle in enumerate(favorites, 1):
             print(f"{Colors.CYAN}{i}. {principle}{Colors.END}")
     
     def handle_history():
-        """处理历史记录查看"""
+        """Handle history view"""
         history = innovator.get_history(15)
         if not history:
-            print(f"{Colors.YELLOW}📝 暂无历史记录{Colors.END}")
+            print(f"{Colors.YELLOW}📝 No history records available{Colors.END}")
             return
         
-        print(f"\n{Colors.BOLD}{Colors.GREEN}📈 最近的分析记录{Colors.END}")
+        print(f"\n{Colors.BOLD}{Colors.GREEN}📈 Recent Analysis Records{Colors.END}")
         for i, record in enumerate(history, 1):
-            rating_display = f"⭐{record['rating']}" if record['rating'] else "未评分"
+            rating_display = f"⭐{record['rating']}" if record['rating'] else "Not rated"
             print(f"{Colors.CYAN}{i}. {record['timestamp']} - {record['problem'][:50]}...{Colors.END}")
-            print(f"   {Colors.YELLOW}方案数: {record['solution_count']} | 评分: {rating_display}{Colors.END}")
+            print(f"   {Colors.YELLOW}Solutions: {record['solution_count']} | Rating: {rating_display}{Colors.END}")
     
     def handle_settings():
-        """处理系统设置"""
-        print(f"\n{Colors.BOLD}{Colors.BLUE}⚙️ 系统设置{Colors.END}")
-        print(f"{Colors.GREEN}当前配置:{Colors.END}")
+        """Handle system settings"""
+        print(f"\n{Colors.BOLD}{Colors.BLUE}⚙️ System Settings{Colors.END}")
+        print(f"{Colors.GREEN}Current configuration:{Colors.END}")
         for key, value in innovator.config.items():
             print(f"  {Colors.CYAN}{key}: {Colors.YELLOW}{value}{Colors.END}")
         
-        print(f"\n{Colors.GREEN}1. 修改最大解决方案数  2. 切换历史记录  3. 返回{Colors.END}")
-        choice = get_input("选择操作", Colors.YELLOW)
+        print(f"\n{Colors.GREEN}1. Modify max solutions  2. Toggle history  3. Return{Colors.END}")
+        choice = get_input("Select operation", Colors.YELLOW)
         
         if choice == "1":
             try:
-                new_max = int(get_input("输入最大解决方案数 (1-10)", Colors.YELLOW))
+                new_max = int(get_input("Enter max solutions (1-10)", Colors.YELLOW))
                 if 1 <= new_max <= 10:
                     innovator.config["max_solutions"] = new_max
                     innovator._save_config()
-                    print(f"{Colors.GREEN}✅ 设置已保存{Colors.END}")
+                    print(f"{Colors.GREEN}✅ Settings saved{Colors.END}")
                 else:
-                    print(f"{Colors.RED}❌ 数值范围错误{Colors.END}")
+                    print(f"{Colors.RED}❌ Value out of range{Colors.END}")
             except ValueError:
-                print(f"{Colors.RED}❌ 输入格式错误{Colors.END}")
+                print(f"{Colors.RED}❌ Input format error{Colors.END}")
         elif choice == "2":
             innovator.config["enable_history"] = not innovator.config["enable_history"]
             innovator._save_config()
-            status = "启用" if innovator.config["enable_history"] else "禁用"
-            print(f"{Colors.GREEN}✅ 历史记录已{status}{Colors.END}")
+            status = "enabled" if innovator.config["enable_history"] else "disabled"
+            print(f"{Colors.GREEN}✅ History {status}{Colors.END}")
     
     def handle_statistics():
-        """处理使用统计"""
+        """Handle usage statistics"""
         stats = innovator.get_statistics()
-        print(f"\n{Colors.BOLD}{Colors.GREEN}📋 使用统计{Colors.END}")
-        print(f"{Colors.CYAN}总分析次数: {Colors.YELLOW}{stats['total_sessions']}{Colors.END}")
-        print(f"{Colors.CYAN}已评分次数: {Colors.YELLOW}{stats['rated_sessions']}{Colors.END}")
+        print(f"\n{Colors.BOLD}{Colors.GREEN}📋 Usage Statistics{Colors.END}")
+        print(f"{Colors.CYAN}Total sessions: {Colors.YELLOW}{stats['total_sessions']}{Colors.END}")
+        print(f"{Colors.CYAN}Rated sessions: {Colors.YELLOW}{stats['rated_sessions']}{Colors.END}")
         if stats['rated_sessions'] > 0:
-            print(f"{Colors.CYAN}平均评分: {Colors.YELLOW}{stats['average_rating']:.1f}/5{Colors.END}")
-        print(f"{Colors.CYAN}收藏原理数: {Colors.YELLOW}{stats['favorites_count']}{Colors.END}")
+            print(f"{Colors.CYAN}Average rating: {Colors.YELLOW}{stats['average_rating']:.1f}/5{Colors.END}")
+        print(f"{Colors.CYAN}Favorite principles: {Colors.YELLOW}{stats['favorites_count']}{Colors.END}")
     
-    # 主循环
+    # Main loop
     clear_screen()
     print_header()
     
@@ -614,48 +931,44 @@ def main():
     
     while True:
         print_menu()
-        choice = get_input("请输入选择 (1-8)", Colors.BOLD + Colors.YELLOW).strip()
+        choice = get_input("prompt_choice").strip().lower()
         
-        if choice == "8":
-            print(f"\n{Colors.GREEN}👋 感谢使用 TRIZ 创新算法助手！{Colors.END}")
+        if choice == "0":
+            print(f"\n{Colors.GREEN}{t.get('msg_thank_you')}{Colors.END}")
             break
+        elif choice == "l":
+            # Language toggle
+            new_lang = innovator.toggle_language()
+            lang_name = "English" if new_lang == "en" else "中文"
+            print(f"\n{Colors.GREEN}🌐 Language switched to {lang_name}{Colors.END}")
+            clear_screen()
+            print_header()
+            continue
         elif choice == "1":
-            print(f"\n{Colors.BOLD}{Colors.BLUE}🎯 智能矛盾分析模式{Colors.END}")
-            print(f"{Colors.CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━{Colors.END}")
-            
-            problem = get_input("描述您的技术问题")
-            improving = get_input("需要改善的参数 (留空自动检测)")
-            worsening = get_input("可能恶化的参数 (留空自动检测)")
-            
-            show_loading("正在基于AI和TRIZ矛盾矩阵分析")
-            current_solutions = innovator.analyze_problem(problem, improving, worsening)
-            print_solutions(current_solutions, "智能矛盾分析结果")
-            
+            problem = smart_analyze_input()
+            if problem:
+                show_loading(t.get("loading_analyzing"))
+                current_solutions = innovator.analyze_problem(problem)
+                print_solutions(current_solutions, "solutions_analysis")
+                handle_favorites_quick(current_solutions)
+                
         elif choice == "2":
-            print(f"\n{Colors.BOLD}{Colors.BLUE}💡 AI头脑风暴模式{Colors.END}")
-            print(f"{Colors.CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━{Colors.END}")
-            
-            problem = get_input("描述您需要解决的问题")
-            
-            show_loading("正在生成创新解决方案")
-            current_solutions = innovator.brainstorm(problem)
-            print_solutions(current_solutions, "AI头脑风暴结果")
-            
+            problem = smart_analyze_input()
+            if problem:
+                show_loading(t.get("loading_brainstorm"))
+                current_solutions = innovator.brainstorm(problem)
+                print_solutions(current_solutions, "solutions_brainstorm")
+                handle_favorites_quick(current_solutions)
+                
         elif choice == "3":
             handle_export(current_solutions)
         elif choice == "4":
-            handle_favorites()
-        elif choice == "5":
-            handle_history()
-        elif choice == "6":
-            handle_settings()
-        elif choice == "7":
-            handle_statistics()
+            handle_more_options()
         else:
-            print(f"{Colors.RED}❌ 无效选择，请重新输入{Colors.END}")
+            print(f"{Colors.RED}{t.get('msg_invalid_choice')}{Colors.END}")
         
-        if choice in ["1", "2", "3", "4", "5", "6", "7"]:
-            input(f"\n{Colors.YELLOW}按回车键继续...{Colors.END}")
+        if choice in ["1", "2", "3", "4"]:
+            input(f"\n{Colors.YELLOW}{t.get('prompt_continue')}{Colors.END}")
             clear_screen()
             print_header()
 
