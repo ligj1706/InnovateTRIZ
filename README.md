@@ -158,7 +158,3 @@ Contributions are welcome! Please feel free to submit issues and pull requests.
 ### 📄 License
 
 This project is licensed under the MIT License.
-
----
-
-**🚀 Start your innovation journey with InnovateTRIZ! | 开始您的创新之旅！**
