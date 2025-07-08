@@ -2,17 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/index.py",
+      "src": "triz_web_app/backend/app.py",
       "use": "@vercel/python"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "api/index.py"
+      "dest": "triz_web_app/backend/app.py"
     }
-  ],
-  "env": {
-    "VERCEL": "1"
-  }
+  ]
 }

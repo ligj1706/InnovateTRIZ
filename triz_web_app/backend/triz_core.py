@@ -38,20 +38,39 @@ class ProblemSession:
 
 class AdvancedTRIZInnovator:
     def __init__(self):
-        self.data_dir = Path.home() / ".triz_innovator_web"
-        self.data_dir.mkdir(exist_ok=True)
-        self.history_file = self.data_dir / "history.pkl"
-        self.favorites_file = self.data_dir / "favorites.pkl"
-        self.config_file = self.data_dir / "config.json"
+        # 在Vercel环境中，避免写入文件系统
+        self.is_serverless = os.environ.get('VERCEL') or os.environ.get('LAMBDA_RUNTIME_DIR')
+        
+        if self.is_serverless:
+            # 无服务器环境：不创建文件，使用内存存储
+            self.data_dir = None
+            self.history_file = None
+            self.favorites_file = None
+            self.config_file = None
+            self.history = []
+            self.favorites = set()
+            self.config = {
+                "max_solutions": 5,
+                "enable_history": False,  # 无服务器环境禁用历史
+                "auto_save": False,
+                "export_format": "json",
+                "language": "en"
+            }
+        else:
+            # 本地环境：正常文件操作
+            self.data_dir = Path.home() / ".triz_innovator_web"
+            self.data_dir.mkdir(exist_ok=True)
+            self.history_file = self.data_dir / "history.pkl"
+            self.favorites_file = self.data_dir / "favorites.pkl"
+            self.config_file = self.data_dir / "config.json"
+            self.history: List[ProblemSession] = self._load_history()
+            self.favorites: Set[str] = self._load_favorites()
+            self.config = self._load_config()
         
         self.principles = self._load_principles()
         self.contradiction_matrix = self._load_matrix()
         self.parameter_keywords = self._load_parameter_keywords()
         self.problem_categories = self._load_problem_categories()
-        
-        self.history: List[ProblemSession] = self._load_history()
-        self.favorites: Set[str] = self._load_favorites()
-        self.config = self._load_config()
     
     def _load_principles(self) -> Dict[int, Dict[str, any]]:
         """完整的40个TRIZ发明原理数据库"""
@@ -159,6 +178,10 @@ class AdvancedTRIZInnovator:
             "auto_save": True,
             "export_format": "json"
         }
+        
+        if self.is_serverless:
+            return default_config
+            
         try:
             if self.config_file.exists():
                 with open(self.config_file, 'r', encoding='utf-8') as f:
@@ -169,6 +192,9 @@ class AdvancedTRIZInnovator:
     
     def _load_history(self) -> List[ProblemSession]:
         """加载历史记录"""
+        if self.is_serverless:
+            return []
+            
         try:
             if self.history_file.exists():
                 with open(self.history_file, 'rb') as f:
@@ -179,6 +205,9 @@ class AdvancedTRIZInnovator:
     
     def _load_favorites(self) -> Set[str]:
         """加载收藏夹"""
+        if self.is_serverless:
+            return set()
+            
         try:
             if self.favorites_file.exists():
                 with open(self.favorites_file, 'rb') as f:
@@ -189,8 +218,9 @@ class AdvancedTRIZInnovator:
     
     def _save_history(self):
         """保存历史记录"""
-        if not self.config.get("enable_history", True):
+        if self.is_serverless or not self.config.get("enable_history", True):
             return
+            
         try:
             with open(self.history_file, 'wb') as f:
                 pickle.dump(self.history[-100:], f)
@@ -199,6 +229,9 @@ class AdvancedTRIZInnovator:
     
     def _save_favorites(self):
         """保存收藏夹"""
+        if self.is_serverless:
+            return
+            
         try:
             with open(self.favorites_file, 'wb') as f:
                 pickle.dump(self.favorites, f)
