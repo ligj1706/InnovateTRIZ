@@ -49,6 +49,39 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 60px;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.language-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.language-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+.language-btn i {
+    font-size: 12px;
+}
+    align-items: center;
     height: 70px;
 }
 

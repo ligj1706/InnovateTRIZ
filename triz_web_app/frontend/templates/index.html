@@ -14,24 +14,29 @@
         <div class="nav-container">
             <div class="nav-logo">
                 <i class="fas fa-lightbulb"></i>
-                <span>TRIZ创新助手</span>
+                <span id="app-title">TRIZ创新助手</span>
             </div>
             <div class="nav-menu">
                 <a href="#home" class="nav-link active" data-section="home">
-                    <i class="fas fa-home"></i> 首页
+                    <i class="fas fa-home"></i> <span id="nav-home">首页</span>
                 </a>
                 <a href="#analyze" class="nav-link" data-section="analyze">
-                    <i class="fas fa-brain"></i> 智能分析
+                    <i class="fas fa-brain"></i> <span id="nav-analyze">智能分析</span>
                 </a>
                 <a href="#brainstorm" class="nav-link" data-section="brainstorm">
-                    <i class="fas fa-lightbulb"></i> 头脑风暴
+                    <i class="fas fa-lightbulb"></i> <span id="nav-brainstorm">头脑风暴</span>
                 </a>
                 <a href="#history" class="nav-link" data-section="history">
-                    <i class="fas fa-history"></i> 历史记录
+                    <i class="fas fa-history"></i> <span id="nav-history">历史记录</span>
                 </a>
                 <a href="#principles" class="nav-link" data-section="principles">
-                    <i class="fas fa-book"></i> 原理库
+                    <i class="fas fa-book"></i> <span id="nav-principles">原理库</span>
                 </a>
+            </div>
+            <div class="nav-actions">
+                <button id="language-toggle" class="language-btn">
+                    <i class="fas fa-globe"></i> EN
+                </button>
             </div>
         </div>
     </nav>
@@ -42,31 +47,31 @@
         <section id="home" class="section active">
             <div class="hero">
                 <div class="hero-content">
-                    <h1>🚀 TRIZ创新算法助手</h1>
-                    <p class="hero-subtitle">基于AI和TRIZ理论的智能问题解决方案生成器</p>
+                    <h1 id="hero-title">🚀 TRIZ创新算法助手</h1>
+                    <p class="hero-subtitle" id="hero-subtitle">基于AI和TRIZ理论的智能问题解决方案生成器</p>
                     <div class="hero-features">
                         <div class="feature-card">
                             <i class="fas fa-brain"></i>
-                            <h3>智能分析</h3>
-                            <p>AI自动检测技术参数，精准匹配矛盾矩阵</p>
+                            <h3 id="feature-analysis">智能分析</h3>
+                            <p id="feature-analysis-desc">AI自动检测技术参数，精准匹配矛盾矩阵</p>
                         </div>
                         <div class="feature-card">
                             <i class="fas fa-lightbulb"></i>
-                            <h3>创新方案</h3>
-                            <p>基于40个TRIZ原理生成多维度解决方案</p>
+                            <h3 id="feature-innovation">创新方案</h3>
+                            <p id="feature-innovation-desc">基于40个TRIZ原理生成多维度解决方案</p>
                         </div>
                         <div class="feature-card">
                             <i class="fas fa-chart-line"></i>
-                            <p>智能评分</p>
-                            <p>置信度和相关性双重评分体系</p>
+                            <h3 id="feature-scoring">智能评分</h3>
+                            <p id="feature-scoring-desc">置信度和相关性双重评分体系</p>
                         </div>
                     </div>
                     <div class="hero-actions">
                         <button class="btn btn-primary" onclick="showSection('analyze')">
-                            <i class="fas fa-arrow-right"></i> 开始分析
+                            <i class="fas fa-arrow-right"></i> <span id="btn-start-analysis">开始分析</span>
                         </button>
                         <button class="btn btn-secondary" onclick="showSection('principles')">
-                            <i class="fas fa-book"></i> 浏览原理
+                            <i class="fas fa-book"></i> <span id="btn-browse-principles">浏览原理</span>
                         </button>
                     </div>
                 </div>

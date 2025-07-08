@@ -2,10 +2,13 @@
 class TRIZApp {
     constructor() {
         this.currentSolutions = [];
+        this.currentLanguage = 'zh';
+        this.translations = {};
         this.init();
     }
 
     init() {
+        this.loadLanguage();
         this.bindEvents();
         this.loadStatistics();
         this.loadHistory();
@@ -13,7 +16,90 @@ class TRIZApp {
         this.showSection('home');
     }
 
+    async loadLanguage() {
+        try {
+            const response = await fetch('/api/language');
+            const data = await response.json();
+            
+            if (response.ok) {
+                this.currentLanguage = data.current_language;
+                this.translations = data.texts;
+                this.updateUITexts();
+            }
+        } catch (error) {
+            console.error('Language loading error:', error);
+        }
+    }
+
+    async toggleLanguage() {
+        const newLanguage = this.currentLanguage === 'zh' ? 'en' : 'zh';
+        
+        try {
+            const response = await fetch('/api/language', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ language: newLanguage })
+            });
+            
+            const data = await response.json();
+            
+            if (response.ok) {
+                this.currentLanguage = newLanguage;
+                await this.loadLanguage();
+                this.loadPrinciples(); // Reload principles in new language
+                this.showNotification(this.getText('language_switched'));
+            }
+        } catch (error) {
+            console.error('Language toggle error:', error);
+        }
+    }
+
+    getText(key) {
+        return this.translations[key] || key;
+    }
+
+    updateUITexts() {
+        const textElements = {
+            'app-title': 'app_title',
+            'hero-title': 'app_title',
+            'hero-subtitle': 'app_subtitle',
+            'nav-home': 'nav_home',
+            'nav-analyze': 'nav_analyze',
+            'nav-brainstorm': 'nav_brainstorm',
+            'nav-history': 'nav_history',
+            'nav-principles': 'nav_principles',
+            'feature-analysis': 'feature_analysis',
+            'feature-analysis-desc': 'feature_analysis_desc',
+            'feature-innovation': 'feature_innovation',
+            'feature-innovation-desc': 'feature_innovation_desc',
+            'feature-scoring': 'feature_scoring',
+            'feature-scoring-desc': 'feature_scoring_desc',
+            'btn-start-analysis': 'btn_start_analysis',
+            'btn-browse-principles': 'btn_browse_principles'
+        };
+        
+        Object.entries(textElements).forEach(([elementId, textKey]) => {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.textContent = this.getText(textKey);
+            }
+        });
+        
+        // Update language toggle button
+        const languageToggle = document.getElementById('language-toggle');
+        if (languageToggle) {
+            languageToggle.innerHTML = `<i class="fas fa-globe"></i> ${this.currentLanguage === 'zh' ? 'EN' : '中文'}`;
+        }
+    }
+
     bindEvents() {
+        // 语言切换按钮事件
+        document.getElementById('language-toggle').addEventListener('click', () => {
+            this.toggleLanguage();
+        });
+
         // 导航点击事件
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', (e) => {
@@ -95,11 +181,11 @@ class TRIZApp {
         const worsening = document.getElementById('worsening-input').value.trim();
 
         if (!problem) {
-            this.showNotification('请输入问题描述', 'error');
+            this.showNotification(this.getText('enter_problem'), 'error');
             return;
         }
 
-        this.showLoading(true);
+        this.showLoading(true, this.getText('loading_analyzing'));
 
         try {
             const response = await fetch('/api/analyze', {
@@ -119,12 +205,12 @@ class TRIZApp {
             if (response.ok) {
                 this.currentSolutions = data.solutions;
                 this.displaySolutions(data.solutions, 'analysis-results', 'solutions-list');
-                this.showNotification('分析完成！');
+                this.showNotification(this.getText('analysis_complete'));
             } else {
-                this.showNotification(data.error || '分析失败', 'error');
+                this.showNotification(data.error || this.getText('analysis_failed'), 'error');
             }
         } catch (error) {
-            this.showNotification('网络错误，请稍后重试', 'error');
+            this.showNotification(this.getText('network_error'), 'error');
             console.error('Analysis error:', error);
         } finally {
             this.showLoading(false);
@@ -136,11 +222,11 @@ class TRIZApp {
         const numSolutions = parseInt(document.getElementById('solution-count').value);
 
         if (!problem) {
-            this.showNotification('请输入问题描述', 'error');
+            this.showNotification(this.getText('enter_problem'), 'error');
             return;
         }
 
-        this.showLoading(true, '正在生成创新方案...');
+        this.showLoading(true, this.getText('loading_brainstorm'));
 
         try {
             const response = await fetch('/api/brainstorm', {
@@ -159,12 +245,12 @@ class TRIZApp {
             if (response.ok) {
                 this.currentSolutions = data.solutions;
                 this.displaySolutions(data.solutions, 'brainstorm-results', 'brainstorm-solutions-list');
-                this.showNotification('头脑风暴完成！');
+                this.showNotification(this.getText('brainstorm_complete'));
             } else {
-                this.showNotification(data.error || '头脑风暴失败', 'error');
+                this.showNotification(data.error || this.getText('brainstorm_failed'), 'error');
             }
         } catch (error) {
-            this.showNotification('网络错误，请稍后重试', 'error');
+            this.showNotification(this.getText('network_error'), 'error');
             console.error('Brainstorm error:', error);
         } finally {
             this.showLoading(false);
@@ -176,7 +262,7 @@ class TRIZApp {
         const list = document.getElementById(listId);
 
         if (!solutions || solutions.length === 0) {
-            list.innerHTML = '<p class="no-results">未找到解决方案</p>';
+            list.innerHTML = `<p class="no-results">${this.getText('no_solutions')}</p>`;
             container.style.display = 'block';
             return;
         }
@@ -199,14 +285,14 @@ class TRIZApp {
                 
                 <div class="solution-metrics">
                     <div class="metric">
-                        <span>置信度:</span>
+                        <span>${this.getText('confidence')}:</span>
                         <div class="confidence-bar">
                             <div class="confidence-fill" style="width: ${solution.confidence * 100}%"></div>
                         </div>
                         <span>${(solution.confidence * 100).toFixed(0)}%</span>
                     </div>
                     <div class="metric">
-                        <span>相关性:</span>
+                        <span>${this.getText('relevance')}:</span>
                         <div class="relevance-bar">
                             <div class="relevance-fill" style="width: ${solution.relevance_score * 100}%"></div>
                         </div>
@@ -215,7 +301,7 @@ class TRIZApp {
                 </div>
                 
                 <div class="solution-examples">
-                    <h4>应用示例:</h4>
+                    <h4>${this.getText('examples')}:</h4>
                     <div class="example-tags">
                         ${solution.examples.slice(0, 4).map(example => 
                             `<span class="example-tag">${example}</span>`
@@ -224,7 +310,7 @@ class TRIZApp {
                 </div>
                 
                 <details style="margin-top: 1rem;">
-                    <summary style="cursor: pointer; font-weight: 500;">详细说明</summary>
+                    <summary style="cursor: pointer; font-weight: 500;">${this.getText('detailed_explanation')}</summary>
                     <p style="margin-top: 0.5rem; color: var(--text-secondary);">
                         ${solution.detailed_explanation}
                     </p>
@@ -238,7 +324,7 @@ class TRIZApp {
 
     async exportSolutions(solutions) {
         if (!solutions || solutions.length === 0) {
-            this.showNotification('没有可导出的解决方案', 'error');
+            this.showNotification(this.getText('no_solutions_to_export'), 'error');
             return;
         }
 
@@ -261,12 +347,12 @@ class TRIZApp {
 
             if (response.ok) {
                 this.downloadFile(data.content, data.filename, format);
-                this.showNotification('导出成功！');
+                this.showNotification(this.getText('export_success'));
             } else {
-                this.showNotification(data.error || '导出失败', 'error');
+                this.showNotification(data.error || this.getText('export_failed'), 'error');
             }
         } catch (error) {
-            this.showNotification('导出时发生错误', 'error');
+            this.showNotification(this.getText('export_error'), 'error');
             console.error('Export error:', error);
         }
     }
@@ -282,11 +368,11 @@ class TRIZApp {
             
             modal.innerHTML = `
                 <div style="background: white; padding: 2rem; border-radius: 12px; max-width: 400px;">
-                    <h3 style="margin-bottom: 1rem;">选择导出格式</h3>
+                    <h3 style="margin-bottom: 1rem;">${this.getText('select_export_format')}</h3>
                     <div style="display: flex; gap: 1rem;">
-                        <button class="btn btn-primary" onclick="selectFormat('json')">JSON格式</button>
-                        <button class="btn btn-secondary" onclick="selectFormat('txt')">文本格式</button>
-                        <button class="btn" onclick="selectFormat(null)" style="background: #6b7280; color: white;">取消</button>
+                        <button class="btn btn-primary" onclick="selectFormat('json')">${this.getText('json_format')}</button>
+                        <button class="btn btn-secondary" onclick="selectFormat('txt')">${this.getText('text_format')}</button>
+                        <button class="btn" onclick="selectFormat(null)" style="background: #6b7280; color: white;">${this.getText('cancel')}</button>
                     </div>
                 </div>
             `;
@@ -335,10 +421,10 @@ class TRIZApp {
                 icon.className = isActive ? 'fas fa-star' : 'fas fa-star';
                 this.showNotification(data.message);
             } else {
-                this.showNotification(data.error || '操作失败', 'error');
+                this.showNotification(data.error || this.getText('operation_failed'), 'error');
             }
         } catch (error) {
-            this.showNotification('网络错误', 'error');
+            this.showNotification(this.getText('network_error'), 'error');
             console.error('Favorite error:', error);
         }
     }
@@ -375,7 +461,7 @@ class TRIZApp {
         const container = document.getElementById('history-items');
         
         if (!history || history.length === 0) {
-            container.innerHTML = '<p class="no-results">暂无历史记录</p>';
+            container.innerHTML = `<p class="no-results">${this.getText('no_history')}</p>`;
             return;
         }
 
@@ -384,7 +470,7 @@ class TRIZApp {
                 <div class="history-content">
                     <div class="history-problem">${item.problem}</div>
                     <div class="history-meta">
-                        ${item.timestamp} · ${item.solution_count}个方案
+                        ${item.timestamp} · ${item.solution_count}${this.getText('solutions')}
                         ${item.rating ? `· <span class="history-rating">⭐${item.rating}</span>` : ''}
                     </div>
                 </div>
@@ -417,7 +503,7 @@ class TRIZApp {
                 <div class="principle-category">${principle.category}</div>
                 
                 <div class="solution-examples" style="margin-top: 1rem;">
-                    <h4>应用示例:</h4>
+                    <h4>${this.getText('examples')}:</h4>
                     <div class="example-tags">
                         ${principle.examples.slice(0, 3).map(example => 
                             `<span class="example-tag">${example}</span>`
