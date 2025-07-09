@@ -67,9 +67,9 @@ class Translations:
     TEXT = {
         "en": {
             # Headers and titles
-            "app_title": "🚀 TRIZ Innovation Assistant - Pro",
+            "app_title": "🚀 InnovateTRIZ - Pro",
             "app_subtitle": "Intelligent Problem Solving Made Simple",
-            "menu_title": "🚀 TRIZ Innovation Assistant",
+            "menu_title": "🚀 InnovateTRIZ",
             
             # Main menu
             "menu_analyze": "🎯 Analyze Problem",
@@ -121,7 +121,7 @@ class Translations:
             
             # Messages
             "msg_invalid_choice": "❌ Invalid choice, please try again",
-            "msg_thank_you": "👋 Thank you for using TRIZ Innovation Assistant!",
+            "msg_thank_you": "👋 Thank you for using InnovateTRIZ!",
             "msg_details_required": "Please provide more details (at least 10 characters)",
             "msg_added_favorite": "Added to favorites",
             "msg_removed_favorite": "Removed from favorites",
@@ -168,9 +168,9 @@ class Translations:
         
         "zh": {
             # Headers and titles
-            "app_title": "🚀 TRIZ创新算法助手 - 专业版",
+            "app_title": "🚀 TRIZ助手 - 专业版",
             "app_subtitle": "智能问题解决，简单高效",
-            "menu_title": "🚀 TRIZ创新算法助手",
+            "menu_title": "🚀 TRIZ助手",
             
             # Main menu
             "menu_analyze": "🎯 分析问题",
@@ -222,7 +222,7 @@ class Translations:
             
             # Messages
             "msg_invalid_choice": "❌ 无效选择，请重新输入",
-            "msg_thank_you": "👋 感谢使用TRIZ创新算法助手！",
+            "msg_thank_you": "👋 感谢使用TRIZ助手！",
             "msg_details_required": "请提供更多详细信息（至少10个字符）",
             "msg_added_favorite": "已添加到收藏夹",
             "msg_removed_favorite": "已从收藏夹移除",

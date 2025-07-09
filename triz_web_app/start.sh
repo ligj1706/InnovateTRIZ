@@ -2,7 +2,7 @@
 
 # TRIZ Web App 启动脚本
 
-echo "🚀 TRIZ创新算法助手 - Web版启动中..."
+echo "🚀 TRIZ助手 - Web版启动中..."
 
 # 检查Python版本
 if ! command -v python3 &> /dev/null; then

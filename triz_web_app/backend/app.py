@@ -247,6 +247,6 @@ def manage_favorites():
         return jsonify({'error': f'收藏夹操作失败: {str(e)}'}), 500
 
 if __name__ == '__main__':
-    print("🚀 TRIZ创新算法助手 - Web版启动中...")
+    print("🚀 TRIZ助手 - Web版启动中...")
     print("📱 访问地址: http://localhost:5001")
     app.run(debug=True, host='0.0.0.0', port=5001)

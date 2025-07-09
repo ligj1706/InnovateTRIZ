@@ -41,7 +41,7 @@ class TRIZTranslations:
     
     TEXTS = {
         "en": {
-            "app_title": "🚀 TRIZ Innovation Assistant",
+            "app_title": "🚀 InnovateTRIZ",
             "app_subtitle": "AI-powered intelligent problem-solving solution generator",
             "language_toggle": "中文",
             "analyze_button": "Analyze Problem",
@@ -94,7 +94,7 @@ class TRIZTranslations:
             "language_switched": "Language switched successfully"
         },
         "zh": {
-            "app_title": "🚀 TRIZ创新算法助手",
+            "app_title": "🚀 TRIZ助手",
             "app_subtitle": "基于AI和TRIZ理论的智能问题解决方案生成器",
             "language_toggle": "English",
             "analyze_button": "分析问题",

@@ -1,7 +1,7 @@
 @echo off
 chcp 65001 >nul
 
-echo 🚀 TRIZ创新算法助手 - Web版启动中...
+echo 🚀 TRIZ助手 - Web版启动中...
 
 REM 检查Python版本
 python --version >nul 2>&1
