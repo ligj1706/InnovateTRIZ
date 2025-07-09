@@ -13,6 +13,8 @@
     }
   ],
   "env": {
-    "OPENROUTER_API_KEY": "@openrouter_api_key"
+    "OPENROUTER_API_KEY": "@openrouter_api_key",
+    "OPENROUTER_SITE_URL": "@openrouter_site_url", 
+    "OPENROUTER_SITE_NAME": "@openrouter_site_name"
   }
 }
