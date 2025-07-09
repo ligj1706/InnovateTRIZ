@@ -31,30 +31,6 @@ class TRIZApp {
         }
     }
 
-    async toggleLanguage() {
-        const newLanguage = this.currentLanguage === 'zh' ? 'en' : 'zh';
-        
-        try {
-            const response = await fetch('/api/language', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ language: newLanguage })
-            });
-            
-            const data = await response.json();
-            
-            if (response.ok) {
-                this.currentLanguage = newLanguage;
-                await this.loadLanguage();
-                this.loadPrinciples(); // Reload principles in new language
-                this.showNotification(this.getText('language_switched'));
-            }
-        } catch (error) {
-            console.error('Language toggle error:', error);
-        }
-    }
 
     getText(key) {
         return this.translations[key] || key;
@@ -106,7 +82,7 @@ class TRIZApp {
             'stat-principles': 'stat_principles',
             'stat-matrix': 'stat_matrix',
             'stat-ai': 'stat_ai',
-            'tech-features-title': 'core_advantages_title',
+            'core-advantages-title': 'core_advantages_title',
             'feature-ai-title': 'feature_ai_title',
             'feature-ai-desc': 'feature_ai_desc',
             'feature-fast-title': 'feature_fast_title',
@@ -167,17 +143,58 @@ class TRIZApp {
             }
         });
         
-        // Update language toggle button
-        const languageToggle = document.getElementById('language-toggle');
-        if (languageToggle) {
-            languageToggle.innerHTML = `<i class="fas fa-globe"></i> ${this.currentLanguage === 'zh' ? 'EN' : '中文'}`;
+        // Update language toggle
+        this.updateLanguageToggle();
+    }
+
+    updateLanguageToggle() {
+        const currentLang = document.getElementById('current-lang');
+        const dropdown = document.querySelector('.language-dropdown');
+        const options = dropdown.querySelectorAll('.language-option');
+        
+        // Update current language display
+        if (currentLang) {
+            currentLang.textContent = this.currentLanguage === 'zh' ? '中文' : 'English';
         }
+        
+        // Update dropdown options active state
+        options.forEach(option => {
+            const lang = option.dataset.lang;
+            if (lang === this.currentLanguage) {
+                option.classList.add('active');
+            } else {
+                option.classList.remove('active');
+            }
+        });
     }
 
     bindEvents() {
-        // 语言切换按钮事件
-        document.getElementById('language-toggle').addEventListener('click', () => {
-            this.toggleLanguage();
+        // 语言切换下拉菜单事件
+        const languageToggle = document.getElementById('language-toggle');
+        const dropdown = document.querySelector('.language-dropdown');
+        const options = document.querySelectorAll('.language-option');
+        
+        // 点击切换显示/隐藏下拉菜单
+        languageToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdown.classList.toggle('show');
+        });
+        
+        // 点击语言选项
+        options.forEach(option => {
+            option.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const selectedLang = option.dataset.lang;
+                if (selectedLang !== this.currentLanguage) {
+                    this.switchLanguage(selectedLang);
+                }
+                dropdown.classList.remove('show');
+            });
+        });
+        
+        // 点击外部关闭下拉菜单
+        document.addEventListener('click', () => {
+            dropdown.classList.remove('show');
         });
 
         // 导航点击事件
@@ -225,6 +242,29 @@ class TRIZApp {
                 this.brainstormProblem();
             }
         });
+    }
+    
+    async switchLanguage(newLanguage) {
+        try {
+            const response = await fetch('/api/language', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ language: newLanguage })
+            });
+            
+            const data = await response.json();
+            
+            if (response.ok) {
+                this.currentLanguage = newLanguage;
+                await this.loadLanguage();
+                this.loadPrinciples(); // Reload principles in new language
+                this.showNotification(this.getText('language_switched'));
+            }
+        } catch (error) {
+            console.error('Language switch error:', error);
+        }
     }
 
     showSection(sectionId) {

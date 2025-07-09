@@ -32,9 +32,21 @@
                 </a>
             </div>
             <div class="nav-actions">
-                <button id="language-toggle" class="language-btn">
-                    <i class="fas fa-globe"></i> EN
-                </button>
+                <div class="language-toggle" id="language-toggle">
+                    <i class="fas fa-globe"></i>
+                    <span id="current-lang">中文</span>
+                    <i class="fas fa-chevron-down"></i>
+                    <div class="language-dropdown">
+                        <div class="language-option" data-lang="zh">
+                            <span class="flag">🇨🇳</span>
+                            <span class="lang-name">中文</span>
+                        </div>
+                        <div class="language-option" data-lang="en">
+                            <span class="flag">🇺🇸</span>
+                            <span class="lang-name">English</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
