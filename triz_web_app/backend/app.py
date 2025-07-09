@@ -189,7 +189,27 @@ def manage_language():
                     'footer_export': triz_engine.get_text('footer_export'),
                     'footer_copyright_text': triz_engine.get_text('footer_copyright_text'),
                     'footer_version': triz_engine.get_text('footer_version'),
-                    'footer_powered': triz_engine.get_text('footer_powered')
+                    'footer_powered': triz_engine.get_text('footer_powered'),
+                    'about_triz_title': triz_engine.get_text('about_triz_title'),
+                    'about_triz_desc': triz_engine.get_text('about_triz_desc'),
+                    'stat_principles': triz_engine.get_text('stat_principles'),
+                    'stat_matrix': triz_engine.get_text('stat_matrix'),
+                    'stat_ai': triz_engine.get_text('stat_ai'),
+                    'tech_features_title': triz_engine.get_text('tech_features_title'),
+                    'feature_ai_title': triz_engine.get_text('feature_ai_title'),
+                    'feature_ai_desc': triz_engine.get_text('feature_ai_desc'),
+                    'feature_bilingual_title': triz_engine.get_text('feature_bilingual_title'),
+                    'feature_bilingual_desc': triz_engine.get_text('feature_bilingual_desc'),
+                    'feature_database_title': triz_engine.get_text('feature_database_title'),
+                    'feature_database_desc': triz_engine.get_text('feature_database_desc'),
+                    'feature_scoring_title': triz_engine.get_text('feature_scoring_title'),
+                    'feature_scoring_desc': triz_engine.get_text('feature_scoring_desc'),
+                    'feature_export_title': triz_engine.get_text('feature_export_title'),
+                    'feature_export_desc': triz_engine.get_text('feature_export_desc'),
+                    'feature_brainstorm_title': triz_engine.get_text('feature_brainstorm_title'),
+                    'feature_brainstorm_desc': triz_engine.get_text('feature_brainstorm_desc'),
+                    'footer_simple_description': triz_engine.get_text('footer_simple_description'),
+                    'footer_simple_copyright': triz_engine.get_text('footer_simple_copyright')
                 }
             })
         

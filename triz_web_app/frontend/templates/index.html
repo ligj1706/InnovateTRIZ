@@ -74,6 +74,85 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- 关于TRIZ部分 -->
+            <section class="about-triz">
+                <div class="container">
+                    <div class="about-content">
+                        <div class="about-text">
+                            <h2 id="about-triz-title">关于TRIZ理论</h2>
+                            <p id="about-triz-desc">
+                                TRIZ是由苏联发明家阿奇舒勒创立的发明问题解决理论，通过分析专利数据库中的技术矛盾，总结出40个创新原理和矛盾矩阵，为技术创新提供系统性方法论。本平台结合AI技术，让TRIZ理论的应用更加智能化和便捷化。
+                            </p>
+                        </div>
+                        <div class="about-stats">
+                            <div class="stat-item">
+                                <div class="stat-number">40</div>
+                                <div class="stat-label" id="stat-principles">创新原理</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">39×39</div>
+                                <div class="stat-label" id="stat-matrix">矛盾矩阵</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">AI</div>
+                                <div class="stat-label" id="stat-ai">智能分析</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 技术特点部分 -->
+            <section class="tech-features">
+                <div class="container">
+                    <h2 id="tech-features-title">技术特点</h2>
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <h3 id="feature-ai-title">AI智能分析</h3>
+                            <p id="feature-ai-desc">基于自然语言处理技术，自动识别技术参数和矛盾关系</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <h3 id="feature-bilingual-title">双语支持</h3>
+                            <p id="feature-bilingual-desc">完整的中英文双语界面，支持国际化应用场景</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <h3 id="feature-database-title">完整原理库</h3>
+                            <p id="feature-database-desc">包含40个TRIZ原理的详细说明、应用案例和实施指南</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3 id="feature-scoring-title">智能评分</h3>
+                            <p id="feature-scoring-desc">置信度和相关性双重评分体系，量化解决方案质量</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-download"></i>
+                            </div>
+                            <h3 id="feature-export-title">结果导出</h3>
+                            <p id="feature-export-desc">支持JSON和文本格式导出，便于后续分析和分享</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <h3 id="feature-brainstorm-title">创意生成</h3>
+                            <p id="feature-brainstorm-desc">多角度头脑风暴模式，激发创新思维</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </section>
 
         <!-- 智能分析部分 -->
@@ -230,56 +309,36 @@
         </section>
     </main>
 
-    <!-- 专业页脚 -->
+    <!-- 简洁专业页脚 -->
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-content">
-                <div class="footer-section">
+                <div class="footer-brand">
                     <div class="footer-logo">
                         <i class="fas fa-brain"></i>
                         <span id="footer-title">InnovateTRIZ</span>
                     </div>
                     <p id="footer-description" class="footer-desc">
-                        基于TRIZ理论的智能创新解决方案平台，结合AI技术为您的技术难题提供系统性创新思路
+                        智能TRIZ创新解决方案平台
                     </p>
                 </div>
                 
-                <div class="footer-section">
-                    <h4 id="footer-features-title">核心功能</h4>
-                    <ul class="footer-links">
-                        <li><a href="#analyze" onclick="showSection('analyze')"><i class="fas fa-brain"></i> <span id="footer-analyze">智能矛盾分析</span></a></li>
-                        <li><a href="#brainstorm" onclick="showSection('brainstorm')"><i class="fas fa-lightbulb"></i> <span id="footer-brainstorm">AI头脑风暴</span></a></li>
-                        <li><a href="#principles" onclick="showSection('principles')"><i class="fas fa-book"></i> <span id="footer-principles">TRIZ原理库</span></a></li>
-                        <li><a href="#history" onclick="showSection('history')"><i class="fas fa-history"></i> <span id="footer-history">分析历史</span></a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4 id="footer-about-title">关于TRIZ</h4>
-                    <p id="footer-about-desc" class="footer-text">
-                        TRIZ是由苏联发明家阿奇舒勒创立的发明问题解决理论，通过分析专利数据库中的技术矛盾，总结出40个创新原理和矛盾矩阵，为技术创新提供系统性方法论。
-                    </p>
-                </div>
-                
-                <div class="footer-section">
-                    <h4 id="footer-tech-title">技术特点</h4>
-                    <ul class="footer-features">
-                        <li><i class="fas fa-robot"></i> <span id="footer-ai">AI智能分析</span></li>
-                        <li><i class="fas fa-globe"></i> <span id="footer-bilingual">双语支持</span></li>
-                        <li><i class="fas fa-database"></i> <span id="footer-database">完整原理库</span></li>
-                        <li><i class="fas fa-chart-line"></i> <span id="footer-scoring">智能评分</span></li>
-                        <li><i class="fas fa-download"></i> <span id="footer-export">结果导出</span></li>
-                    </ul>
+                <div class="footer-links-section">
+                    <div class="footer-nav">
+                        <a href="#analyze" onclick="showSection('analyze')" id="footer-analyze">智能分析</a>
+                        <a href="#brainstorm" onclick="showSection('brainstorm')" id="footer-brainstorm">头脑风暴</a>
+                        <a href="#principles" onclick="showSection('principles')" id="footer-principles">原理库</a>
+                        <a href="#history" onclick="showSection('history')" id="footer-history">历史记录</a>
+                    </div>
                 </div>
             </div>
             
             <div class="footer-bottom">
                 <div class="footer-copyright">
-                    <p id="footer-copyright-text">© 2024 InnovateTRIZ. 致力于推动系统性创新方法论的普及与应用</p>
+                    <p id="footer-copyright-text">© 2024 InnovateTRIZ. 基于TRIZ理论的智能创新平台</p>
                 </div>
                 <div class="footer-info">
-                    <span id="footer-version">Version 1.0</span> | 
-                    <span id="footer-powered">Powered by TRIZ Theory & AI</span>
+                    <span id="footer-version">v1.0</span>
                 </div>
             </div>
         </div>
