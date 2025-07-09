@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TRIZ助手 - 智能问题解决方案</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
@@ -12,14 +13,11 @@
     <!-- 导航栏 -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-logo">
-                <i class="fas fa-lightbulb"></i>
+            <div class="nav-logo" onclick="showSection('home')" style="cursor: pointer;">
+                <i class="fas fa-brain"></i>
                 <span id="app-title">TRIZ创新助手</span>
             </div>
             <div class="nav-menu">
-                <a href="#home" class="nav-link active" data-section="home">
-                    <i class="fas fa-home"></i> <span id="nav-home">首页</span>
-                </a>
                 <a href="#analyze" class="nav-link" data-section="analyze">
                     <i class="fas fa-brain"></i> <span id="nav-analyze">智能分析</span>
                 </a>
@@ -82,14 +80,14 @@
         <section id="analyze" class="section">
             <div class="container">
                 <div class="section-header">
-                    <h2><i class="fas fa-brain"></i> 智能矛盾分析</h2>
-                    <p>输入您的技术问题，AI将自动识别参数并生成解决方案</p>
+                    <h2><i class="fas fa-brain"></i> <span id="analyze-title">智能矛盾分析</span></h2>
+                    <p id="analyze-desc">输入您的技术问题，AI将自动识别参数并生成解决方案</p>
                 </div>
                 
                 <div class="analysis-form">
                     <div class="form-group">
                         <label for="problem-input">
-                            <i class="fas fa-question-circle"></i> 问题描述
+                            <i class="fas fa-question-circle"></i> <span id="problem-label">问题描述</span>
                         </label>
                         <textarea id="problem-input" placeholder="描述您遇到的技术问题，例如：手机需要更大电池但要保持轻薄..."></textarea>
                     </div>
@@ -97,29 +95,29 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="improving-input">
-                                <i class="fas fa-arrow-up"></i> 需要改善的参数
+                                <i class="fas fa-arrow-up"></i> <span id="improving-label">需要改善的参数</span>
                             </label>
                             <input type="text" id="improving-input" placeholder="例如：续航、性能、质量（可留空自动检测）">
                         </div>
                         <div class="form-group">
                             <label for="worsening-input">
-                                <i class="fas fa-arrow-down"></i> 可能恶化的参数
+                                <i class="fas fa-arrow-down"></i> <span id="worsening-label">可能恶化的参数</span>
                             </label>
                             <input type="text" id="worsening-input" placeholder="例如：厚度、成本、复杂性（可留空自动检测）">
                         </div>
                     </div>
                     
                     <button id="analyze-btn" class="btn btn-primary btn-large">
-                        <i class="fas fa-cogs"></i> 开始分析
+                        <i class="fas fa-cogs"></i> <span id="analyze-btn-text">开始分析</span>
                     </button>
                 </div>
                 
                 <div id="analysis-results" class="results-container" style="display: none;">
                     <div class="results-header">
-                        <h3><i class="fas fa-lightbulb"></i> 解决方案</h3>
+                        <h3><i class="fas fa-lightbulb"></i> <span id="solutions-title">解决方案</span></h3>
                         <div class="results-actions">
                             <button id="export-btn" class="btn btn-secondary">
-                                <i class="fas fa-download"></i> 导出
+                                <i class="fas fa-download"></i> <span id="export-text">导出</span>
                             </button>
                         </div>
                     </div>
@@ -132,41 +130,41 @@
         <section id="brainstorm" class="section">
             <div class="container">
                 <div class="section-header">
-                    <h2><i class="fas fa-lightbulb"></i> AI头脑风暴</h2>
-                    <p>快速生成多角度创新解决方案</p>
+                    <h2><i class="fas fa-lightbulb"></i> <span id="brainstorm-title">AI头脑风暴</span></h2>
+                    <p id="brainstorm-desc">快速生成多角度创新解决方案</p>
                 </div>
                 
                 <div class="brainstorm-form">
                     <div class="form-group">
                         <label for="brainstorm-input">
-                            <i class="fas fa-lightbulb"></i> 问题描述
+                            <i class="fas fa-lightbulb"></i> <span id="brainstorm-problem-label">问题描述</span>
                         </label>
                         <textarea id="brainstorm-input" placeholder="描述您需要解决的问题..."></textarea>
                     </div>
                     
                     <div class="form-group">
                         <label for="solution-count">
-                            <i class="fas fa-list-ol"></i> 解决方案数量
+                            <i class="fas fa-list-ol"></i> <span id="solution-count-label">解决方案数量</span>
                         </label>
                         <select id="solution-count">
-                            <option value="3">3个方案</option>
-                            <option value="5" selected>5个方案</option>
-                            <option value="8">8个方案</option>
-                            <option value="10">10个方案</option>
+                            <option value="3" id="option-3">3个方案</option>
+                            <option value="5" selected id="option-5">5个方案</option>
+                            <option value="8" id="option-8">8个方案</option>
+                            <option value="10" id="option-10">10个方案</option>
                         </select>
                     </div>
                     
                     <button id="brainstorm-btn" class="btn btn-primary btn-large">
-                        <i class="fas fa-magic"></i> 开始头脑风暴
+                        <i class="fas fa-magic"></i> <span id="brainstorm-btn-text">开始头脑风暴</span>
                     </button>
                 </div>
                 
                 <div id="brainstorm-results" class="results-container" style="display: none;">
                     <div class="results-header">
-                        <h3><i class="fas fa-magic"></i> 创新方案</h3>
+                        <h3><i class="fas fa-magic"></i> <span id="innovation-title">创新方案</span></h3>
                         <div class="results-actions">
                             <button id="export-brainstorm-btn" class="btn btn-secondary">
-                                <i class="fas fa-download"></i> 导出
+                                <i class="fas fa-download"></i> <span id="export-brainstorm-text">导出</span>
                             </button>
                         </div>
                     </div>
@@ -179,8 +177,8 @@
         <section id="history" class="section">
             <div class="container">
                 <div class="section-header">
-                    <h2><i class="fas fa-history"></i> 历史记录</h2>
-                    <p>查看您的分析历史和统计信息</p>
+                    <h2><i class="fas fa-history"></i> <span id="history-title">历史记录</span></h2>
+                    <p id="history-desc">查看您的分析历史和统计信息</p>
                 </div>
                 
                 <div class="stats-grid">
@@ -188,27 +186,27 @@
                         <i class="fas fa-chart-line"></i>
                         <div class="stat-content">
                             <h3 id="total-sessions">0</h3>
-                            <p>总分析次数</p>
+                            <p id="total-sessions-label">总分析次数</p>
                         </div>
                     </div>
                     <div class="stat-card">
                         <i class="fas fa-star"></i>
                         <div class="stat-content">
                             <h3 id="avg-rating">0.0</h3>
-                            <p>平均评分</p>
+                            <p id="avg-rating-label">平均评分</p>
                         </div>
                     </div>
                     <div class="stat-card">
                         <i class="fas fa-heart"></i>
                         <div class="stat-content">
                             <h3 id="favorites-count">0</h3>
-                            <p>收藏原理</p>
+                            <p id="favorites-label">收藏原理</p>
                         </div>
                     </div>
                 </div>
                 
                 <div class="history-list">
-                    <h3>最近的分析记录</h3>
+                    <h3 id="recent-analysis">最近的分析记录</h3>
                     <div id="history-items" class="history-items"></div>
                 </div>
             </div>
@@ -218,8 +216,8 @@
         <section id="principles" class="section">
             <div class="container">
                 <div class="section-header">
-                    <h2><i class="fas fa-book"></i> TRIZ原理库</h2>
-                    <p>浏览完整的40个TRIZ发明原理</p>
+                    <h2><i class="fas fa-book"></i> <span id="principles-title">TRIZ原理库</span></h2>
+                    <p id="principles-desc">浏览完整的40个TRIZ发明原理</p>
                 </div>
                 
                 <div class="search-box">
@@ -236,7 +234,7 @@
     <div id="loading" class="loading" style="display: none;">
         <div class="loading-content">
             <div class="spinner"></div>
-            <p>AI正在分析中...</p>
+            <p id="loading-text">AI正在分析中...</p>
         </div>
     </div>
 

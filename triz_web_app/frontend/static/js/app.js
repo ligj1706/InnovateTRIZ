@@ -65,7 +65,6 @@ class TRIZApp {
             'app-title': 'app_title',
             'hero-title': 'app_title',
             'hero-subtitle': 'app_subtitle',
-            'nav-home': 'nav_home',
             'nav-analyze': 'nav_analyze',
             'nav-brainstorm': 'nav_brainstorm',
             'nav-history': 'nav_history',
@@ -77,10 +76,65 @@ class TRIZApp {
             'feature-scoring': 'feature_scoring',
             'feature-scoring-desc': 'feature_scoring_desc',
             'btn-start-analysis': 'btn_start_analysis',
-            'btn-browse-principles': 'btn_browse_principles'
+            'btn-browse-principles': 'btn_browse_principles',
+            'analyze-title': 'analyze_title',
+            'analyze-desc': 'analyze_desc',
+            'problem-label': 'problem_label',
+            'improving-label': 'improving_label',
+            'worsening-label': 'worsening_label',
+            'analyze-btn-text': 'analyze_btn_text',
+            'solutions-title': 'solutions_title',
+            'export-text': 'export_text',
+            'brainstorm-title': 'brainstorm_title',
+            'brainstorm-desc': 'brainstorm_desc',
+            'brainstorm-problem-label': 'brainstorm_problem_label',
+            'solution-count-label': 'solution_count_label',
+            'brainstorm-btn-text': 'brainstorm_btn_text',
+            'innovation-title': 'innovation_title',
+            'export-brainstorm-text': 'export_brainstorm_text',
+            'history-title': 'history_title',
+            'history-desc': 'history_desc',
+            'total-sessions-label': 'total_sessions_label',
+            'avg-rating-label': 'avg_rating_label',
+            'favorites-label': 'favorites_label',
+            'recent-analysis': 'recent_analysis',
+            'principles-title': 'principles_title',
+            'principles-desc': 'principles_desc',
+            'loading-text': 'loading_text'
         };
         
         Object.entries(textElements).forEach(([elementId, textKey]) => {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.textContent = this.getText(textKey);
+            }
+        });
+        
+        // Update placeholders
+        const placeholderElements = {
+            'problem-input': 'problem_placeholder',
+            'improving-input': 'improving_placeholder',
+            'worsening-input': 'worsening_placeholder',
+            'brainstorm-input': 'brainstorm_placeholder',
+            'principles-search': 'search_placeholder'
+        };
+        
+        Object.entries(placeholderElements).forEach(([elementId, textKey]) => {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.placeholder = this.getText(textKey);
+            }
+        });
+        
+        // Update option texts
+        const optionElements = {
+            'option-3': 'option_3_solutions',
+            'option-5': 'option_5_solutions', 
+            'option-8': 'option_8_solutions',
+            'option-10': 'option_10_solutions'
+        };
+        
+        Object.entries(optionElements).forEach(([elementId, textKey]) => {
             const element = document.getElementById(elementId);
             if (element) {
                 element.textContent = this.getText(textKey);
@@ -161,9 +215,12 @@ class TRIZApp {
             link.classList.remove('active');
         });
         
-        const activeLink = document.querySelector(`[data-section="${sectionId}"]`);
-        if (activeLink) {
-            activeLink.classList.add('active');
+        // 如果不是home页面，激活对应的导航链接
+        if (sectionId !== 'home') {
+            const activeLink = document.querySelector(`[data-section="${sectionId}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
         }
 
         // 根据章节加载特定数据
