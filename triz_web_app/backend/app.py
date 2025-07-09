@@ -173,7 +173,23 @@ def manage_language():
                     'option_3_solutions': triz_engine.get_text('option_3_solutions'),
                     'option_5_solutions': triz_engine.get_text('option_5_solutions'),
                     'option_8_solutions': triz_engine.get_text('option_8_solutions'),
-                    'option_10_solutions': triz_engine.get_text('option_10_solutions')
+                    'option_10_solutions': triz_engine.get_text('option_10_solutions'),
+                    'applications': triz_engine.get_text('applications'),
+                    'implementation_steps': triz_engine.get_text('implementation_steps'),
+                    'benefits': triz_engine.get_text('benefits'),
+                    'footer_description': triz_engine.get_text('footer_description'),
+                    'footer_features_title': triz_engine.get_text('footer_features_title'),
+                    'footer_about_title': triz_engine.get_text('footer_about_title'),
+                    'footer_about_desc': triz_engine.get_text('footer_about_desc'),
+                    'footer_tech_title': triz_engine.get_text('footer_tech_title'),
+                    'footer_ai': triz_engine.get_text('footer_ai'),
+                    'footer_bilingual': triz_engine.get_text('footer_bilingual'),
+                    'footer_database': triz_engine.get_text('footer_database'),
+                    'footer_scoring': triz_engine.get_text('footer_scoring'),
+                    'footer_export': triz_engine.get_text('footer_export'),
+                    'footer_copyright_text': triz_engine.get_text('footer_copyright_text'),
+                    'footer_version': triz_engine.get_text('footer_version'),
+                    'footer_powered': triz_engine.get_text('footer_powered')
                 }
             })
         
@@ -200,14 +216,24 @@ def get_principles():
     try:
         principles = []
         for pid, data in triz_engine.principles.items():
-            principles.append({
+            principle = {
                 'id': pid,
                 'name': triz_engine.get_principle_text(data, 'name'),
                 'description': triz_engine.get_principle_text(data, 'description'),
                 'category': triz_engine.get_principle_text(data, 'category'),
                 'examples': triz_engine.get_principle_text(data, 'examples'),
                 'detailed': triz_engine.get_principle_text(data, 'detailed')
-            })
+            }
+            
+            # Add enhanced fields if available
+            if 'applications' in data:
+                principle['applications'] = triz_engine.get_principle_text(data, 'applications')
+            if 'implementation' in data:
+                principle['implementation'] = triz_engine.get_principle_text(data, 'implementation')
+            if 'benefits' in data:
+                principle['benefits'] = triz_engine.get_principle_text(data, 'benefits')
+                
+            principles.append(principle)
         return jsonify({
             'principles': principles,
             'total_count': len(principles),

@@ -122,7 +122,23 @@ class TRIZTranslations:
             "option_3_solutions": "3 solutions",
             "option_5_solutions": "5 solutions",
             "option_8_solutions": "8 solutions",
-            "option_10_solutions": "10 solutions"
+            "option_10_solutions": "10 solutions",
+            "applications": "Applications",
+            "implementation_steps": "Implementation Steps",
+            "benefits": "Benefits",
+            "footer_description": "Intelligent innovation solution platform based on TRIZ theory, combined with AI technology to provide systematic innovative ideas for your technical challenges",
+            "footer_features_title": "Core Features",
+            "footer_about_title": "About TRIZ",
+            "footer_about_desc": "TRIZ is the Theory of Inventive Problem Solving created by Soviet inventor Altshuller. By analyzing technical contradictions in patent databases, it summarizes 40 innovation principles and contradiction matrix, providing systematic methodology for technical innovation.",
+            "footer_tech_title": "Technical Features",
+            "footer_ai": "AI Smart Analysis",
+            "footer_bilingual": "Bilingual Support",
+            "footer_database": "Complete Principle Library",
+            "footer_scoring": "Smart Scoring",
+            "footer_export": "Result Export",
+            "footer_copyright_text": "© 2024 InnovateTRIZ. Dedicated to promoting the popularization and application of systematic innovation methodology",
+            "footer_version": "Version 1.0",
+            "footer_powered": "Powered by TRIZ Theory & AI"
         },
         "zh": {
             "app_title": "🚀 TRIZ助手",
@@ -206,7 +222,23 @@ class TRIZTranslations:
             "option_3_solutions": "3个方案",
             "option_5_solutions": "5个方案",
             "option_8_solutions": "8个方案",
-            "option_10_solutions": "10个方案"
+            "option_10_solutions": "10个方案",
+            "applications": "应用案例",
+            "implementation_steps": "实施步骤",
+            "benefits": "应用效益",
+            "footer_description": "基于TRIZ理论的智能创新解决方案平台，结合AI技术为您的技术难题提供系统性创新思路",
+            "footer_features_title": "核心功能",
+            "footer_about_title": "关于TRIZ",
+            "footer_about_desc": "TRIZ是由苏联发明家阿奇舒勒创立的发明问题解决理论，通过分析专利数据库中的技术矛盾，总结出40个创新原理和矛盾矩阵，为技术创新提供系统性方法论。",
+            "footer_tech_title": "技术特点",
+            "footer_ai": "AI智能分析",
+            "footer_bilingual": "双语支持",
+            "footer_database": "完整原理库",
+            "footer_scoring": "智能评分",
+            "footer_export": "结果导出",
+            "footer_copyright_text": "© 2024 InnovateTRIZ. 致力于推动系统性创新方法论的普及与应用",
+            "footer_version": "Version 1.0",
+            "footer_powered": "Powered by TRIZ Theory & AI"
         }
     }
 
@@ -253,16 +285,22 @@ class AdvancedTRIZInnovator:
             1: {
                 "name": {"zh": "分割", "en": "Segmentation"},
                 "description": {"zh": "将对象分成独立的部分", "en": "Divide an object into independent parts"},
-                "detailed": {"zh": "将物体分解为独立的部分，使各部分易于拆卸和组装，增加分解的程度", "en": "Divide an object into independent parts, make parts easy to disassemble and assemble"},
+                "detailed": {"zh": "将物体分解为独立的部分，使各部分易于拆卸和组装，增加分解的程度。这种方法可以提高系统的灵活性、可维护性和可扩展性。", "en": "Divide an object into independent parts, make parts easy to disassemble and assemble. This approach improves system flexibility, maintainability and scalability."},
                 "examples": {"zh": ["模块化设计", "可拆卸家具", "组件化软件架构", "微服务架构"], "en": ["Modular design", "Detachable furniture", "Component architecture", "Microservices"]},
+                "applications": {"zh": ["IKEA家具的模块化设计", "汽车零部件标准化", "软件插件架构", "积木玩具设计"], "en": ["IKEA modular furniture design", "Automotive parts standardization", "Software plugin architecture", "Building block toy design"]},
+                "implementation": {"zh": ["1. 识别系统中的功能单元", "2. 定义模块间的接口标准", "3. 设计独立可测试的模块", "4. 建立模块组装规范"], "en": ["1. Identify functional units in system", "2. Define interface standards between modules", "3. Design independently testable modules", "4. Establish module assembly specifications"]},
+                "benefits": {"zh": ["提高系统可维护性", "降低开发复杂度", "增强可重用性", "便于并行开发"], "en": ["Improve system maintainability", "Reduce development complexity", "Enhance reusability", "Enable parallel development"]},
                 "category": {"zh": "结构优化", "en": "Structure Optimization"},
                 "keywords": ["模块", "组件", "分离", "独立", "拆分"]
             },
             2: {
                 "name": {"zh": "抽取", "en": "Taking out"},
                 "description": {"zh": "从对象中取出干扰的部分或特性", "en": "Separate an interfering part or property from an object"},
-                "detailed": {"zh": "分离出有害或不必要的部分/特性，或相反，单独分离出有用的部分/特性", "en": "Separate harmful or unnecessary parts, or conversely, separate useful parts"},
+                "detailed": {"zh": "分离出有害或不必要的部分/特性，或相反，单独分离出有用的部分/特性。这种方法通过消除干扰因素来提高系统效率。", "en": "Separate harmful or unnecessary parts, or conversely, separate useful parts. This method improves system efficiency by eliminating interfering factors."},
                 "examples": {"zh": ["噪音消除", "杂质过滤", "核心功能提取", "异常处理隔离"], "en": ["Noise cancellation", "Impurity filtering", "Core function extraction", "Exception isolation"]},
+                "applications": {"zh": ["空气净化器过滤系统", "降噪耳机技术", "水处理净化工艺", "软件错误隔离机制"], "en": ["Air purifier filtration system", "Noise-canceling headphone technology", "Water treatment purification process", "Software error isolation mechanism"]},
+                "implementation": {"zh": ["1. 识别干扰或有害因素", "2. 设计分离机制", "3. 验证分离效果", "4. 优化分离过程"], "en": ["1. Identify interfering or harmful factors", "2. Design separation mechanism", "3. Verify separation effectiveness", "4. Optimize separation process"]},
+                "benefits": {"zh": ["提高产品纯度", "减少系统干扰", "增强性能稳定性", "降低维护成本"], "en": ["Improve product purity", "Reduce system interference", "Enhance performance stability", "Lower maintenance costs"]},
                 "category": {"zh": "功能优化", "en": "Function Optimization"},
                 "keywords": ["提取", "分离", "净化", "隔离", "筛选"]
             },

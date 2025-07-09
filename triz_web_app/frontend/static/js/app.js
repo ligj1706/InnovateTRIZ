@@ -100,7 +100,25 @@ class TRIZApp {
             'recent-analysis': 'recent_analysis',
             'principles-title': 'principles_title',
             'principles-desc': 'principles_desc',
-            'loading-text': 'loading_text'
+            'loading-text': 'loading_text',
+            'footer-title': 'app_title',
+            'footer-description': 'footer_description',
+            'footer-features-title': 'footer_features_title',
+            'footer-analyze': 'analyze_title',
+            'footer-brainstorm': 'brainstorm_title',
+            'footer-principles': 'principles_title',
+            'footer-history': 'history_title',
+            'footer-about-title': 'footer_about_title',
+            'footer-about-desc': 'footer_about_desc',
+            'footer-tech-title': 'footer_tech_title',
+            'footer-ai': 'footer_ai',
+            'footer-bilingual': 'footer_bilingual',
+            'footer-database': 'footer_database',
+            'footer-scoring': 'footer_scoring',
+            'footer-export': 'footer_export',
+            'footer-copyright-text': 'footer_copyright_text',
+            'footer-version': 'footer_version',
+            'footer-powered': 'footer_powered'
         };
         
         Object.entries(textElements).forEach(([elementId, textKey]) => {
@@ -554,18 +572,63 @@ class TRIZApp {
         
         container.innerHTML = principles.map(principle => `
             <div class="principle-card">
-                <div class="principle-id">${principle.id}</div>
-                <div class="principle-name">${principle.name}</div>
-                <div class="principle-description">${principle.description}</div>
-                <div class="principle-category">${principle.category}</div>
+                <div class="principle-header">
+                    <div class="principle-id">${principle.id}</div>
+                    <div class="principle-name">${principle.name}</div>
+                </div>
                 
-                <div class="solution-examples" style="margin-top: 1rem;">
-                    <h4>${this.getText('examples')}:</h4>
-                    <div class="example-tags">
-                        ${principle.examples.slice(0, 3).map(example => 
-                            `<span class="example-tag">${example}</span>`
-                        ).join('')}
+                <div class="principle-content">
+                    <div class="principle-description">${principle.description}</div>
+                    <div class="principle-category">${principle.category}</div>
+                    
+                    <div class="principle-section">
+                        <h5>${this.getText('examples')}:</h5>
+                        <div class="example-tags">
+                            ${principle.examples.slice(0, 4).map(example => 
+                                `<span class="example-tag">${example}</span>`
+                            ).join('')}
+                        </div>
                     </div>
+                    
+                    ${principle.applications ? `
+                        <div class="principle-section">
+                            <h5>${this.getText('applications')}:</h5>
+                            <div class="application-list">
+                                ${principle.applications.slice(0, 3).map(app => 
+                                    `<div class="application-item">• ${app}</div>`
+                                ).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    <details class="principle-details">
+                        <summary>${this.getText('detailed_explanation')}</summary>
+                        <div class="details-content">
+                            <p>${principle.detailed}</p>
+                            
+                            ${principle.implementation ? `
+                                <div class="implementation-section">
+                                    <h6>${this.getText('implementation_steps')}:</h6>
+                                    <ol class="implementation-list">
+                                        ${principle.implementation.map(step => 
+                                            `<li>${step}</li>`
+                                        ).join('')}
+                                    </ol>
+                                </div>
+                            ` : ''}
+                            
+                            ${principle.benefits ? `
+                                <div class="benefits-section">
+                                    <h6>${this.getText('benefits')}:</h6>
+                                    <ul class="benefits-list">
+                                        ${principle.benefits.map(benefit => 
+                                            `<li>${benefit}</li>`
+                                        ).join('')}
+                                    </ul>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </details>
                 </div>
             </div>
         `).join('');
