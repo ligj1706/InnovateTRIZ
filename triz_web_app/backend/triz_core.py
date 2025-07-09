@@ -158,7 +158,11 @@ class TRIZTranslations:
             "feature_brainstorm_title": "Creative Generation",
             "feature_brainstorm_desc": "Multi-angle brainstorming mode to stimulate innovative thinking",
             "footer_simple_description": "Intelligent TRIZ Innovation Solution Platform",
-            "footer_simple_copyright": "© 2024 InnovateTRIZ. TRIZ-based intelligent innovation platform"
+            "footer_simple_copyright": "© 2024 InnovateTRIZ. TRIZ-based intelligent innovation platform",
+            "ai_enhanced_label": "AI Smart Enhancement",
+            "ai_enhanced_desc": "Use AI to automatically identify technical parameters and provide more precise solutions",
+            "loading_ai_analyzing": "AI is analyzing problem with TRIZ theory...",
+            "ai_analysis_complete": "AI-enhanced analysis complete!"
         },
         "zh": {
             "app_title": "🚀 TRIZ助手",
@@ -278,7 +282,11 @@ class TRIZTranslations:
             "feature_brainstorm_title": "创意生成",
             "feature_brainstorm_desc": "多角度头脑风暴模式，激发创新思维",
             "footer_simple_description": "智能TRIZ创新解决方案平台",
-            "footer_simple_copyright": "© 2024 InnovateTRIZ. 基于TRIZ理论的智能创新平台"
+            "footer_simple_copyright": "© 2024 InnovateTRIZ. 基于TRIZ理论的智能创新平台",
+            "ai_enhanced_label": "AI智能增强",
+            "ai_enhanced_desc": "使用AI自动识别技术参数，提供更精准的解决方案",
+            "loading_ai_analyzing": "AI正在结合TRIZ理论分析问题...",
+            "ai_analysis_complete": "AI增强分析完成！"
         }
     }
 

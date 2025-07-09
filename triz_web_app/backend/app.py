@@ -4,6 +4,7 @@ import json
 import datetime
 import os
 import sys
+from openai import OpenAI
 
 # 添加当前目录到路径
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -20,10 +21,213 @@ CORS(app)
 # 初始化TRIZ引擎
 triz_engine = AdvancedTRIZInnovator()
 
+# 初始化OpenRouter客户端
+openrouter_client = OpenAI(
+    base_url="https://openrouter.ai/api/v1",
+    api_key=os.environ.get('OPENROUTER_API_KEY', ''),
+) if os.environ.get('OPENROUTER_API_KEY') else None
+
 @app.route('/')
 def index():
     """主页"""
     return render_template('index.html')
+
+@app.route('/api/ai-analyze', methods=['POST'])
+def ai_enhanced_analyze():
+    """AI增强的问题分析API"""
+    try:
+        if not openrouter_client:
+            return jsonify({'error': 'AI service not available'}), 503
+            
+        data = request.get_json()
+        problem = data.get('problem', '')
+        improving = data.get('improving', '')
+        worsening = data.get('worsening', '')
+        
+        if not problem:
+            return jsonify({'error': triz_engine.get_text('enter_problem')}), 400
+
+        # 1. 使用AI分析问题
+        ai_analysis = analyze_problem_with_ai(problem)
+        
+        # 2. 如果AI分析成功，使用AI识别的参数；否则使用用户输入
+        if ai_analysis and ai_analysis.get('success'):
+            improving_param = ai_analysis.get('improving_param', improving)
+            worsening_param = ai_analysis.get('worsening_param', worsening)
+            enhanced_description = ai_analysis.get('enhanced_description', problem)
+        else:
+            improving_param = improving
+            worsening_param = worsening
+            enhanced_description = problem
+
+        # 3. 调用TRIZ分析
+        solutions = triz_engine.analyze_problem(enhanced_description, improving_param, worsening_param)
+        
+        # 4. 使用AI增强解决方案
+        enhanced_solutions = []
+        for solution in solutions:
+            if ai_analysis and ai_analysis.get('success'):
+                enhanced_solution = enhance_solution_with_ai(solution, problem)
+                if enhanced_solution:
+                    enhanced_solutions.append(enhanced_solution)
+                else:
+                    enhanced_solutions.append(solution)
+            else:
+                enhanced_solutions.append(solution)
+
+        # 5. 构建响应
+        result = {
+            'problem': problem,
+            'improving_param': improving_param,
+            'worsening_param': worsening_param,
+            'solutions': [sol.to_dict() for sol in enhanced_solutions],
+            'timestamp': datetime.datetime.now().isoformat(),
+            'solution_count': len(enhanced_solutions),
+            'language': triz_engine.current_language,
+            'ai_enhanced': ai_analysis and ai_analysis.get('success', False)
+        }
+        
+        return jsonify(result)
+    
+    except Exception as e:
+        return jsonify({'error': f'AI分析失败: {str(e)}'}), 500
+
+def analyze_problem_with_ai(problem):
+    """使用AI分析问题，识别技术参数"""
+    try:
+        if not openrouter_client:
+            return None
+            
+        prompt = f"""
+作为TRIZ专家，请分析以下技术问题：
+
+问题：{problem}
+
+请完成以下任务：
+1. 识别核心技术矛盾
+2. 确定需要改善的参数
+3. 确定可能恶化的参数
+4. 提供问题的更清晰描述
+
+请以JSON格式返回，包含以下字段：
+{{
+    "improving_param": "需要改善的参数",
+    "worsening_param": "可能恶化的参数", 
+    "enhanced_description": "问题的更清晰描述",
+    "technical_contradiction": "核心技术矛盾描述",
+    "success": true
+}}
+
+只返回JSON，不要其他文字。
+"""
+
+        completion = openrouter_client.chat.completions.create(
+            extra_headers={
+                "HTTP-Referer": os.environ.get('OPENROUTER_SITE_URL', ''),
+                "X-Title": os.environ.get('OPENROUTER_SITE_NAME', 'InnovateTRIZ'),
+            },
+            model="tngtech/deepseek-r1t2-chimera:free",
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ],
+            temperature=0.3,
+            max_tokens=1000
+        )
+        
+        response_text = completion.choices[0].message.content
+        
+        # 尝试解析JSON响应
+        try:
+            # 提取JSON部分（去掉markdown格式）
+            json_start = response_text.find('{')
+            json_end = response_text.rfind('}') + 1
+            if json_start != -1 and json_end != -1:
+                json_text = response_text[json_start:json_end]
+                ai_result = json.loads(json_text)
+                ai_result['success'] = True
+                return ai_result
+            else:
+                raise json.JSONDecodeError("No JSON found", response_text, 0)
+        except json.JSONDecodeError:
+            print(f"AI返回格式错误: {response_text}")
+            return {'success': False}
+            
+    except Exception as e:
+        print(f"AI分析错误: {str(e)}")
+        return {'success': False}
+
+def enhance_solution_with_ai(solution, original_problem):
+    """使用AI增强解决方案"""
+    try:
+        if not openrouter_client:
+            return None
+            
+        prompt = f"""
+基于以下信息，请增强TRIZ解决方案：
+
+原始问题：{original_problem}
+
+TRIZ原理：{solution.principle}
+原理描述：{solution.description}
+应用示例：{', '.join(solution.examples)}
+
+请提供：
+1. 针对具体问题的应用建议
+2. 实施步骤
+3. 可能的技术路径
+
+请保持原有数据结构，只增强description和detailed_explanation字段。
+以JSON格式返回：
+{{
+    "enhanced_description": "针对具体问题的应用描述",
+    "detailed_explanation": "详细的实施指导",
+    "success": true
+}}
+
+只返回JSON，不要其他文字。
+"""
+
+        completion = openrouter_client.chat.completions.create(
+            extra_headers={
+                "HTTP-Referer": os.environ.get('OPENROUTER_SITE_URL', ''),
+                "X-Title": os.environ.get('OPENROUTER_SITE_NAME', 'InnovateTRIZ'),
+            },
+            model="tngtech/deepseek-r1t2-chimera:free",
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ],
+            temperature=0.3,
+            max_tokens=800
+        )
+        
+        response_text = completion.choices[0].message.content
+        
+        try:
+            # 提取JSON部分（去掉markdown格式）
+            json_start = response_text.find('{')
+            json_end = response_text.rfind('}') + 1
+            if json_start != -1 and json_end != -1:
+                json_text = response_text[json_start:json_end]
+                ai_result = json.loads(json_text)
+                if ai_result.get('success'):
+                    # 更新解决方案的描述
+                    solution.description = ai_result.get('enhanced_description', solution.description)
+                    solution.detailed_explanation = ai_result.get('detailed_explanation', solution.detailed_explanation)
+                    return solution
+        except json.JSONDecodeError:
+            pass
+            
+        return solution
+        
+    except Exception as e:
+        print(f"方案增强错误: {str(e)}")
+        return solution
 
 @app.route('/api/analyze', methods=['POST'])
 def analyze_problem():
@@ -209,7 +413,11 @@ def manage_language():
                     'feature_brainstorm_title': triz_engine.get_text('feature_brainstorm_title'),
                     'feature_brainstorm_desc': triz_engine.get_text('feature_brainstorm_desc'),
                     'footer_simple_description': triz_engine.get_text('footer_simple_description'),
-                    'footer_simple_copyright': triz_engine.get_text('footer_simple_copyright')
+                    'footer_simple_copyright': triz_engine.get_text('footer_simple_copyright'),
+                    'ai_enhanced_label': triz_engine.get_text('ai_enhanced_label'),
+                    'ai_enhanced_desc': triz_engine.get_text('ai_enhanced_desc'),
+                    'loading_ai_analyzing': triz_engine.get_text('loading_ai_analyzing'),
+                    'ai_analysis_complete': triz_engine.get_text('ai_analysis_complete')
                 }
             })
         

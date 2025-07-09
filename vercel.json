@@ -11,5 +11,8 @@
       "src": "/(.*)",
       "dest": "triz_web_app/backend/app.py"
     }
-  ]
+  ],
+  "env": {
+    "OPENROUTER_API_KEY": "@openrouter_api_key"
+  }
 }

@@ -102,7 +102,9 @@ class TRIZApp {
             'footer-principles': 'nav_principles',
             'footer-history': 'nav_history',
             'footer-copyright-text': 'footer_simple_copyright',
-            'footer-version': 'footer_version'
+            'footer-version': 'footer_version',
+            'ai-enhanced-label': 'ai_enhanced_label',
+            'ai-enhanced-desc': 'ai_enhanced_desc'
         };
         
         Object.entries(textElements).forEach(([elementId, textKey]) => {
@@ -302,16 +304,21 @@ class TRIZApp {
         const problem = document.getElementById('problem-input').value.trim();
         const improving = document.getElementById('improving-input').value.trim();
         const worsening = document.getElementById('worsening-input').value.trim();
+        const aiEnhanced = document.getElementById('ai-enhanced').checked;
 
         if (!problem) {
             this.showNotification(this.getText('enter_problem'), 'error');
             return;
         }
 
-        this.showLoading(true, this.getText('loading_analyzing'));
+        // 根据AI增强开关选择不同的API端点
+        const apiEndpoint = aiEnhanced ? '/api/ai-analyze' : '/api/analyze';
+        const loadingText = aiEnhanced ? this.getText('loading_ai_analyzing') : this.getText('loading_analyzing');
+        
+        this.showLoading(true, loadingText);
 
         try {
-            const response = await fetch('/api/analyze', {
+            const response = await fetch(apiEndpoint, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -328,7 +335,13 @@ class TRIZApp {
             if (response.ok) {
                 this.currentSolutions = data.solutions;
                 this.displaySolutions(data.solutions, 'analysis-results', 'solutions-list');
-                this.showNotification(this.getText('analysis_complete'));
+                
+                // 如果是AI增强分析，显示特殊提示
+                if (data.ai_enhanced) {
+                    this.showNotification(this.getText('ai_analysis_complete'), 'success');
+                } else {
+                    this.showNotification(this.getText('analysis_complete'), 'success');
+                }
             } else {
                 this.showNotification(data.error || this.getText('analysis_failed'), 'error');
             }

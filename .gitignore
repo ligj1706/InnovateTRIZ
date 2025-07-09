@@ -19,35 +19,47 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
-MANIFEST
 
 # Virtual environments
 venv/
 env/
 ENV/
 
+# Environment variables
+.env
+.env.local
+.env.production
+
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
 
 # OS
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
 Thumbs.db
-
-# User data
-.triz_innovator_pro/
-.triz_innovator_web/
 
 # Logs
 *.log
+logs/
 
-# Temporary files
-*.tmp
-*.temp
+# Runtime
+*.pid
+*.sock
+
+# Coverage
+.coverage
+htmlcov/
+
+# Testing
+.pytest_cache/
+.tox/
+
+# Vercel
+.vercel
+
+# Claude settings (contains sensitive data)
+.claude/
+EOF < /dev/null
